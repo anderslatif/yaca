@@ -1,0 +1,69 @@
+body {
+  box-sizing: border-box;
+  padding: 0;
+  margin:0;
+  font-family: 'Amatic SC', cursive;
+  background-image: url("https://upload.wikimedia.org/wikipedia/commons/f/f5/Flag_of_Alberta.svg");
+  background-size: 30%;
+  background-repeat: no-repeat;
+  background-color: #0d3692;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+.score {
+  background:rgba(255,255,255,0.2);
+  width: 5%;
+  margin: 0.6%;
+  padding: 2rem 3rem;
+  font-size: 2rem;
+  line-height: 1;
+  border-radius: 1rem;
+  float: right;
+}
+
+.game {
+  width: 40vw;
+  height: 80vh;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 auto;
+}
+
+.hole {
+  flex: 1 0 33.33%;
+  overflow: hidden;
+  position: relative;
+}
+
+.hole:after {
+  display: block;
+  background: url("https://deepakkarki.github.io/dirt.svg") bottom center no-repeat;
+  background-size:contain;
+  content:'';
+  width: 100%;
+  height:70px;
+  position: absolute;
+  z-index: 2;
+  bottom:-30px;
+}
+
+.rat {
+  background: url("./assets/rat.png") bottom center no-repeat;
+  background-size: 40%;
+  position: absolute;
+  top: 100%;
+  width: 100%;
+  height: 100%;
+  transition: all 0.4s;
+}
+
+.rat:hover {
+    cursor: url(./assets/hammer.cur), auto;
+}
+
+.hole.up .rat {
+  top: 0;
+}

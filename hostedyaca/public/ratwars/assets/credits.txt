@@ -1,0 +1,16 @@
+Rat wars text:
+https://www.atlasobscura.com/articles/alberta-s-war-on-rats
+https://www.amusingplanet.com/2018/08/albertas-war-on-rats.html
+https://www.theglobeandmail.com/news/national/on-the-frontlines-of-albertas-war-against-rats/article27504057/
+https://www.alberta.ca/history-of-rat-control-in-alberta.aspx
+
+
+rat posters
+https://nationalpost.com/news/canada/the-stirring-story-of-how-alberta-became-the-first-place-in-the-world-to-banish-the-rat
+
+say -f ./ratwars.txt -o test.aiff
+Prepend [[rate 140]] to the script file (txt) to slow the speed
+
+
+Rat Sprite
+http://pixelartmaker.com/art/d841ef9aa358df3

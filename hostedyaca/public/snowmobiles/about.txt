@@ -1,0 +1,17 @@
+Jo Firestone cute game (Visual Novel)... 
+rat wars...Whack-A-Mole 
+....
+
+hollandpatentpubliclibrary@gmail.com
+
+http://www.williammalone.com/articles/create-html5-canvas-javascript-sprite-animation/
+
+todo
+...
+fix collision detection again again
+add points that appear when hitting an obstacle
+...
+test music
+
+
+// obstacle handle line 19  multiply speed  *1.5

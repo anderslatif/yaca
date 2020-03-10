@@ -1,0 +1,10 @@
+
+1. text prompt mode when entering text
+
+3. be able to handle right clicks and left clicks
+
+4. use the sentiment API to set the font size
+
+
+consider this star background
+https://codepen.io/WebSonick/pen/vjmgu

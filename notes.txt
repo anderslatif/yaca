@@ -1,0 +1,187 @@
+Yaca is immediate human interaction with strangers
+A YACA should be self-explanatory - no text allowed
+
+----------------------------------------------------------------------------------------
+Home
+----------------------------------------------------------------------------------------
+
+Run io-grid and see if this is all
+https://github.com/mrdoob/stats.js
+
+----------------------------------------------------------------------------------------
+Home
+----------------------------------------------------------------------------------------
+
+Animate "Yet another chat application"
+https://github.com/hyperfuse/react-anime
+https://codepen.io/alaingalvan/pen/rrZXYB
+Could also be used after user action
+https://github.com/moarwick/react-mt-svg-lines
+
+On click of the FlapBox
+
+----------------------------------------------------------------------------------------
+Socket.io
+----------------------------------------------------------------------------------------
+
+A global object with namespaces as key and member limits as key-value pair will be made available globally so that the member limit can be looked up.
+
+This function will loop through the rooms and see if there are rooms where the amount of sockets is below the member limit. The first it finds that fulfills this case it will let the socket join that room. If all the rooms are full I should create a new room.
+
+On disconnect I should get the socketId and have them leave the room.
+
+----------------------------------------------------------------------------------------
+
+
+Amazing way to break down shapes into React components
+https://lavrton.com/using-react-with-html5-canvas-871d07d8d753/
+But at least Paper.js also solves this well and with higher performance
+
+
+----------------------------------------------------------------------------------------
+We are tadpoles
+----------------------------------------------------------------------------------------
+
+tadpole example
+http://paperjs.org/features/
+
+http://nardove.com/
+https://github.com/nardove/p5js-sketches
+https://github.com/nardove/p5Kois
+https://github.com/nardove/p5Jellies
+
+----------------------------------------------------------------------------------------
+Kaleidoscope
+----------------------------------------------------------------------------------------
+
+https://github.com/inlet/react-pixi
+
+https://www.npmjs.com/package/react-accelerometer
+
+Let people choose where to draw:
+https://github.com/chrvadala/react-svg-pan-zoom
+
+https://github.com/mouzofabricio/kaleidoscope/blob/master/src/js/Kaleidoscope.js
+
+
+----------------------------------------------------------------------------------------
+Come at me
+----------------------------------------------------------------------------------------
+
+Each person draw something,
+the middle pixel will be the background for the next person to draw
+https://pixijs.io/examples/#/interaction/click.js
+
+
+----------------------------------------------------------------------------------------
+Let me speak
+----------------------------------------------------------------------------------------
+
+whoever has the most spotlight on them will be heard
+https://pixijs.io/examples/#/plugin-layers/lighting.js
+Whoever has the spotlight on them can animate their character
+
+
+----------------------------------------------------------------------------------------
+Leave your mark
+----------------------------------------------------------------------------------------
+
+basics - random squares (1)
+everyone gets 1 square of their own color, they can place it anywhere.
+they can place it on top of what they like
+https://htmlcanvas.quickersite.com/
+The square will disappear after a while
+
+
+----------------------------------------------------------------------------------------
+You see?
+----------------------------------------------------------------------------------------
+
+everyone is an eye, they can look in a direction or blink
+they also get speech bubbles
+like the introduction here:
+https://brandstudio.ru/en/
+
+
+----------------------------------------------------------------------------------------
+Ya heard?
+----------------------------------------------------------------------------------------
+
+voices of people in the chat
+a lot of voices and on hover we activate a person
+https://www.twilio.com/blog/audio-visualisation-web-audio-api--react
+
+----------------------------------------------------------------------------------------
+Coming through
+----------------------------------------------------------------------------------------
+
+pick up a letter and hold it up to form a word
+if you get it right within the time frame then everyone wins
+http://toxicfork.github.io/react-three-renderer-example/#/webgl_physics_mousepick
+
+something similar to above with the cubes (same gravity)
+but collision makes you smaller
+you can then pick up a new item and start over
+
+at the top they can slowly grow bigger, but then nobody else can and they might hit you to get you to leave
+
+
+----------------------------------------------------------------------------------------
+Other
+----------------------------------------------------------------------------------------
+
+http://devtoolsecrets.com/secret/debugging-a-canvas-element.html
+
+https://www.html5rocks.com/en/tutorials/canvas/inspection/
+
+
+Change 1 word amongst larger text
+
+
+Donation Page, highest donor on top:
+Top Donor on top!
+https://github.com/chenglou/react-motion
+http://chenglou.github.io/react-motion/demos/demo1-chat-heads/
+
+
+Keyboard input!
+https://github.com/greena13/react-hotkeys
+
+https://tobiasahlin.com/moving-letters/#4
+
+Swipeable Cards
+Front page?, most recent project on top
+https://www.react-spring.io/
+https://codesandbox.io/embed/j0y0vpz59
+
+https://pixijs.io/examples/#/demos-advanced/scratchcard.js
+
+mouse vs cat
+https://pixijs.io/examples/#/masks/sprite.js
+https://pixijs.io/examples/#/masks/filter.js
+
+
+create your entirely own 3d object, style it and it will be placed in an appropriate place in the world
+http://toxicfork.github.io/react-three-renderer-example/#/webgl_geometry_shapes
+
+
+
+----------------------------------------------------------------------------------------
+Resources
+----------------------------------------------------------------------------------------
+
+https://www.pixijs.com/
+https://threejs.org/
+paper.js
+
+Dwitter.net
+
+
+----------------------------------------------------------------------------------------
+Challenges
+----------------------------------------------------------------------------------------
+
+https://codepen.io/zimjs/pen/GLLvoP?&page=1
+
+Ascii art
+https://www.tetoki.eu/asciiart/
