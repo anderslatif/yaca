@@ -73,7 +73,7 @@ const ballOptions = {
         }
     }   
 };
-let ball = Bodies.polygon(wWidth/12, 450, 8, 30, { label: "unreleased ball", ...ballOptions });
+let ball = Bodies.polygon(wWidth/12, 450, 8, 30, ballOptions );
 const anchor = { x: wWidth/12, y: 450 };
 const elastic = Constraint.create({ 
     pointA: anchor, 
