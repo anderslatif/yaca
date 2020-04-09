@@ -1,0 +1,29 @@
+How many people do you live with?
+Newton's cradle
+
+Commute to work
+https://stackoverflow.com/questions/50959493/matter-js-for-collision-detection
+
+
+Slingshot + basket hoop
+// https://github.com/msmykowski/basketball-game-matter.js
+// http://msmykowski.github.io/basketball-game-matter.js/
+
+
+Rush hour:
+
+
+Congrats! You killed X amount of people. 
+// Show the calculation
+
+
+Add infected score (always visible)
+
+
+----------------------------------------------------------------------
+About
+Corona Virus texture
+https://pixabay.com/vectors/corona-coronavirus-virus-pandemic-4919644/
+
+
+
