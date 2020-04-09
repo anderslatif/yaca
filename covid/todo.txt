@@ -1,26 +1,22 @@
-How many people do you live with?
-Newton's cradle
+todo: create a continue button
+todo: handle collision detection in newton's cradle for few amount of balls
 
-Commute to work
-https://stackoverflow.com/questions/50959493/matter-js-for-collision-detection
 
 
 Slingshot + basket hoop
-// https://github.com/msmykowski/basketball-game-matter.js
-// http://msmykowski.github.io/basketball-game-matter.js/
-... 
-Implemented the hoop in Matter.js by using collision filtering: 
+Implement the hoop in Matter.js by using collision filtering: 
 https://github.com/liabru/matter-js/blob/master/examples/collisionFiltering.js
 
 
-Rush hour:
 
 
-Congrats! You killed X amount of people. 
-// Show the calculation
 
 
-Add infected score (always visible)
+
+
+
+
+
 
 
 ----------------------------------------------------------------------

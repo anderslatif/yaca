@@ -20,20 +20,27 @@ let engine;
 // create a renderer
 let render;
 
-let numbersInfected = 0;
+let numbersInfectedAtHome = 0;
+let numbersInfectedDuringTransports = 0;
+let numbersInfectedAtWork = 0;
+
+let currentLevel;
 
 /* styles */
 const divWrapper = `display: flex; align-items: center; justify-content: center`;
 const fontColorWhite = `color: white;`
 
 
-preLevel2();
+preLevel1();
+
+// todo undo
+// preLevel1();
 function preLevel1() {
     $('body').append(`<div class="text-wrapper level-element" style="${divWrapper}"></div>`);
     $('.text-wrapper').append(`<h2 id="numberOfPeopleText" style="${fontColorWhite}">I live with 6 people</h2>`);
     $('.text-wrapper').append(`<input type="range" id="numberOfPeople" min="0" max="11" />`);
     $('.text-wrapper').append(`<input id="begin" type="submit" value="Begin">`);
-    let amountOfPeople = $(event.currentTarget).val(); 
+    let amountOfPeople = $('#numberOfPeople').val(); 
     $('#numberOfPeople').on('change', (event) => {
         if (amountOfPeople == 0) {
             $('#numberOfPeopleText').text("I live alone");
@@ -54,7 +61,7 @@ function preLevel1() {
 }
 
 function createLevel1(amountOfPeople) {
-
+    setUpNewtonsCradle(amountOfPeople);
 }
 
 function preLevel2() {
@@ -75,6 +82,30 @@ function preLevel2() {
 }
 
 function createLevel2(transportationMode) {
-    
+    setUpCommute(transportationMode);
 }
+
+function createLevel3() {
+    setUpSlingshot();
+}
+
+function createFinalScreen() {
+    $('body').append(`<div class="text-wrapper level-element"></div>`);
+    const internationalAverageAmountOfPeoplePerHome = 3;
+    const numberOfPeopleKilled = numbersInfectedAtHome + 0 
+                                + numbersInfectedDuringTransports * 2 * internationalAverageAmountOfPeoplePerHome 
+                                + numbersInfectedAtWork * internationalAverageAmountOfPeoplePerHome; 
+    $('.text-wrapper').append(`<h2 id="numberOfPeopleText" style="${fontColorWhite}">
+                                Congrats! You killed ${numberOfPeopleKilled} amount of people.</h2>`);
+    // todo Show the calculation
+    $('.text-wrapper').append(`<input id="again" type="submit" value="Do it again">`);
+    $('#again').click((event) => {
+        $('.level-element').remove();
+        preLevel1();
+    });
+    // Congrats! You killed X amount of people. 
+
+
+}
+
 
