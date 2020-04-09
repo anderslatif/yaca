@@ -55,7 +55,7 @@ const cradle = newtonsCradle(wWidth/2-200, wHeight/2, amountOfBalls, 30, 200)
 Body.translate(cradle.bodies[0], { x: -180, y: -100 });
 
 
-// allow mouse interaciton
+// allow mouse interaction
 const mouse = Mouse.create(render.canvas);
 const mouseConstraint = MouseConstraint.create(engine, {
     mouse,
@@ -79,7 +79,7 @@ Events.on(engine, 'collisionStart', (event) => {
     event.source.pairs.collisionActive.map(body => {
         body.bodyA.render.fillStyle = 'green';
         body.bodyB.render.fillStyle = 'green';
-        return body.bodyA.render.fillStyle;
+        // todo change the infected rate
     });
     const allGreen = cradle.bodies.every(ball => ball.render.fillStyle === 'green');
     if (allGreen) {

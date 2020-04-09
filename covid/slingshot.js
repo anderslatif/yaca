@@ -126,7 +126,7 @@ var pyramid2 = Composites.pyramid(wWidth*1.5/2-(25*2), 0, 5, 10, 0, 0, function(
 });
 
 
-// allow mouse interaciton
+// allow mouse interaction
 const mouse = Mouse.create(render.canvas);
 const mouseConstraint = MouseConstraint.create(engine, {
     mouse,

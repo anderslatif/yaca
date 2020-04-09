@@ -8,6 +8,9 @@ https://stackoverflow.com/questions/50959493/matter-js-for-collision-detection
 Slingshot + basket hoop
 // https://github.com/msmykowski/basketball-game-matter.js
 // http://msmykowski.github.io/basketball-game-matter.js/
+... 
+Implemented the hoop in Matter.js by using collision filtering: 
+https://github.com/liabru/matter-js/blob/master/examples/collisionFiltering.js
 
 
 Rush hour:
