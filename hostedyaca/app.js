@@ -23,6 +23,10 @@ app.get('/ratwars', (req, res) => {
     res.sendFile(__dirname + '/public/ratwars/index.html');
 });
 
+app.get('/covid', (req, res) => {
+    res.sendFile(__dirname + '/public/covid/index.html');
+});
+
 let sockets = [];
 
 io.on('connect', socket => {

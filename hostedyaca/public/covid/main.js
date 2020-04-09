@@ -42,6 +42,7 @@ function preLevel1() {
     $('.text-wrapper').append(`<input id="begin" type="submit" value="Begin">`);
     let amountOfPeople = $('#numberOfPeople').val(); 
     $('#numberOfPeople').on('change', (event) => {
+        amountOfPeople = $('#numberOfPeople').val();
         if (amountOfPeople == 0) {
             $('#numberOfPeopleText').text("I live alone");
         } else if (amountOfPeople == 1) {
@@ -56,7 +57,7 @@ function preLevel1() {
     });
     $('#begin').click((event) => {
         $('.level-element').remove();
-        createLevel1(amountOfPeople);
+        createLevel1(Number(amountOfPeople) + 1);
     });
 }
 
