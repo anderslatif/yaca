@@ -18,10 +18,6 @@ todo: search the code for all the todos and complete them
 
 todo: change the HTML document title
 
-Slingshot + basket hoop
-Implement the hoop in Matter.js by using collision filtering: 
-https://github.com/liabru/matter-js/blob/master/examples/collisionFiltering.js
-
 ----------------------------------------------------------------------
 About
 Corona Virus texture

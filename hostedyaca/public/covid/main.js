@@ -37,11 +37,11 @@ const fontColorWhite = `color: white;`
 const titleStyle = `position: absolute; color: white; top: 20px;`;
 
 /* the level flow: uncomment as needed */
-// preLevel1();
+preLevel1();
 // createLevel1(2); // change the argument 
 // preLevel2();
 // createLevel2('public'); // change the modeOfTransport
-createLevel3();
+// createLevel3();
 // createFinalScreen();
 
 // todo undo
@@ -52,7 +52,7 @@ function preLevel1() {
     $('.wrapper').append(`<h2 id="numberOfPeopleText" style="${fontColorWhite}">I live with 6 people</h2>`);
     $('.wrapper').append(`<p style="${fontColorWhite} font-size: 0.7em;">Select below</p>`);
     $('.wrapper').append(`<input type="range" id="numberOfPeople" min="0" max="11" style="margin-bottom: 2em;" />`);
-    $('.wrapper').append(`<input id="begin" class="btn" type="submit" value="Begin">`);
+    $('.wrapper').append(`<input type="submit" id="begin" class="btn" style="width: 100vw;" value="Begin">`);
     let amountOfPeople = $('#numberOfPeople').val(); 
     $('#numberOfPeople').on('change', (event) => {
         amountOfPeople = $('#numberOfPeople').val();

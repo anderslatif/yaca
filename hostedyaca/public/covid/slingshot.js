@@ -68,13 +68,19 @@ function setUpSlingshot(workTasks) {
     // I use the array to check if the released balls went through the hoop
     let balls = [ball];
 
+
+    /* hoop elements  */
+    // more about collision filtering: https://github.com/liabru/matter-js/blob/master/examples/collisionFiltering.js
+    const rimCollisionCategory = 0x0002;
+    const rim = Bodies.rectangle(wWidth/2+(100/2)+5 + wWidth/3, 100+(10/2), 100, 6, 
+                    { label: 'hoop', isStatic: true, 
+                    collisionFilter: {
+                        category: rimCollisionCategory,
+                        mask: rimCollisionCategory
+                    },
+                    render: { fillStyle: 'red' } });
     const backboard = Bodies.rectangle(wWidth/2+100+5 + wWidth/3, 100-(10*2), 10, 100, 
-                        { isStatic: true, label: 'backboard', render: { fillStyle: '#1919FF'} });
-    // const hoop = Bodies.rectangle(wWidth/2+(100/2)+5 + wWidth/3, 100+(10/2), 100, 5, { isStatic: true, render: { fillStyle: 'red' } });
-    const hoopStyle = `position: absolute; background: red; width: 100px; height: 9px; 
-                    left: ${wWidth/2 + wWidth/3 + 5}px; top: 89px`;
-    $("body").append(`<p class='hoop level-element' style="${hoopStyle}"></p>`);
-    const hoop = document.getElementsByClassName("hoop");
+    { isStatic: true, label: 'backboard', render: { fillStyle: '#1919FF'} });
     const particleOptions = { friction: 0.00001, label: 'hoop', render: { visible: false }};
     const cloth = Composites.softBody(wWidth/2 + wWidth/3, 100, 5, 5, 8, 5, false, 8, particleOptions);
 
@@ -84,11 +90,15 @@ function setUpSlingshot(workTasks) {
         }
     }
 
+    World.add(engine.world, rim);
+    World.add(engine.world, [ball, elastic, backboard, cloth]);
+
+    /* departments and coworkers */
     let customText = { 
-        sprite: {
-            texture: createImage("Management")
-        }
-    }; 
+                        sprite: {
+                            texture: createImage("Management")
+                        }
+                    }; 
 
     const ground = Bodies.rectangle(wWidth/2, wHeight-20, wWidth, 10, { isStatic: true, label: 'ground', render: customText});
     const wall = Bodies.rectangle(wWidth-5, wHeight/3, 10, wHeight*1.5, { isStatic: true, label: 'ground' });
@@ -98,16 +108,18 @@ function setUpSlingshot(workTasks) {
     });
 
     customText = { 
-                        sprite: {
-                            texture: createImage("HR")
-                        }
-                    }; 
+                    sprite: {
+                        texture: createImage("HR")
+                    }
+                }; 
 
     var ground2 = Bodies.rectangle(wWidth*1.5/2, wHeight*1.4/2, 200, 20, { isStatic: true , label: 'ground', render: customText });
 
-    var pyramid2 = Composites.pyramid(wWidth*1.5/2-(25*2), 0, 5, 10, 0, 0, function(x, y) {
+    var pyramid2 = Composites.pyramid(wWidth*1.5/2-(25*2), 0, 5, 10, 0, 0, (x, y) =>{
         return Bodies.rectangle(x, y, 25, 40);
     });
+
+    World.add(engine.world, [ground, wall, pyramid, ground2, pyramid2]);
 
 
     // allow mouse interaction
@@ -125,6 +137,15 @@ function setUpSlingshot(workTasks) {
     let goals = workTasks;
     let coolDown = 0
     let isGoingToNextLevel = false;
+
+    World.add(engine.world, mouseConstraint);
+    
+    // run the engine
+    Engine.run(engine);
+
+    // run the renderer
+    Render.run(render);
+
 
     Events.on(engine, 'tick', function() {
         if (mouseConstraint.mouse.button === -1 && (ball.position.x > wWidth/2+30 || ball.position.y < 430)) {
@@ -168,14 +189,5 @@ function setUpSlingshot(workTasks) {
             }
         });
     });
-
-    World.add(engine.world, [ball, elastic, backboard, hoop, cloth, mouseConstraint]);
-    World.add(engine.world, [ground, wall, pyramid, ground2, pyramid2]);
-
-    // run the engine
-    Engine.run(engine);
-
-    // run the renderer
-    Render.run(render);
 
 }
