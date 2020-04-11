@@ -1,5 +1,7 @@
 const wWidth = window.innerWidth;
 const wHeight = window.innerHeight;
+const column = wWidth/12;
+const row = wHeight/12;
 
 // module aliases
 const Engine = Matter.Engine;
@@ -20,23 +22,34 @@ let engine;
 // create a renderer
 let render;
 
-let numbersInfectedAtHome = 0;
-let numbersInfectedDuringTransports = 0;
-let numbersInfectedAtWork = 0;
+let infectedStats = {
+    numbersInfectedAtHome: 0,
+    numbersInfectedDuringTransports: 0,
+    numbersInfectedAtWork: 0,
+    internationalAverageAmountOfPeoplePerHome: 3 
+}
 
 let currentLevel;
 
 /* styles */
-const divWrapper = `display: flex; align-items: center; justify-content: center`;
+const divWrapper = `display: flex; align-items: center; justify-content: center; position: absolute;`;
 const fontColorWhite = `color: white;`
+const titleStyle = `position: absolute; color: white; 
+                    left: ${wWidth/3}px; top: 20px`;
 
 
-preLevel1();
+/* the level flow: uncomment as needed */
+// preLevel1();
+createLevel1(2);
+// preLevel2();
+// createLevel2();
+// createLevel3();
+// createFinalScreen();
 
 // todo undo
 // preLevel1();
 function preLevel1() {
-    $('body').append(`<div class="text-wrapper level-element" style="${divWrapper}"></div>`);
+    $('body').prepend(`<div class="text-wrapper level-element" style="${divWrapper}"></div>`);
     $('.text-wrapper').append(`<h2 id="numberOfPeopleText" style="${fontColorWhite}">I live with 6 people</h2>`);
     $('.text-wrapper').append(`<input type="range" id="numberOfPeople" min="0" max="11" />`);
     $('.text-wrapper').append(`<input id="begin" type="submit" value="Begin">`);
@@ -57,16 +70,17 @@ function preLevel1() {
     });
     $('#begin').click((event) => {
         $('.level-element').remove();
+        // add one to include oneself in the household
         createLevel1(Number(amountOfPeople) + 1);
     });
 }
 
 function createLevel1(amountOfPeople) {
-    setUpNewtonsCradle(amountOfPeople);
+    setUpNewtonsCradle(amountOfPeople || infectedStats.internationalAverageAmountOfPeoplePerHome);
 }
 
 function preLevel2() {
-    $('body').append(`<div class="text-wrapper level-element"></div>`);
+    $('body').prepend(`<div class="text-wrapper level-element"></div>`);
     $('.text-wrapper').append(`<h2 id="numberOfPeopleText" style="${fontColorWhite}">How do you commute to work?</h2>`);
     $('.text-wrapper').append(`<h3 style="${fontColorWhite}">I care about the environment</h3>`);
     $('.text-wrapper').append(`<input id="public-transport" type="submit" value="Public transportation">`);
@@ -91,11 +105,10 @@ function createLevel3() {
 }
 
 function createFinalScreen() {
-    $('body').append(`<div class="text-wrapper level-element"></div>`);
-    const internationalAverageAmountOfPeoplePerHome = 3;
-    const numberOfPeopleKilled = numbersInfectedAtHome + 0 
-                                + numbersInfectedDuringTransports * 2 * internationalAverageAmountOfPeoplePerHome 
-                                + numbersInfectedAtWork * internationalAverageAmountOfPeoplePerHome; 
+    $('body').prepend(`<div class="text-wrapper level-element"></div>`);
+    const numberOfPeopleKilled = infectedStats.numbersInfectedAtHome + 0 
+                                + infectedStats.numbersInfectedDuringTransports * 2 * infectedStats.internationalAverageAmountOfPeoplePerHome 
+                                + infectedStats.numbersInfectedAtWork * infectedStats.internationalAverageAmountOfPeoplePerHome; 
     $('.text-wrapper').append(`<h2 id="numberOfPeopleText" style="${fontColorWhite}">
                                 Congrats! You killed ${numberOfPeopleKilled} amount of people.</h2>`);
     // todo Show the calculation
@@ -104,9 +117,16 @@ function createFinalScreen() {
         $('.level-element').remove();
         preLevel1();
     });
-    // Congrats! You killed X amount of people. 
-
-
 }
 
+function setUpFinishLevel(startNext) {
+    console.log("once");
+    $('body').prepend(`<div class="text-wrapper level-element" style="${divWrapper}"></div>`);
+    $('.text-wrapper').append(`<input type="button" class="done-btn level-element" value="Done?" />`);
+    $('.done-btn').click(() => {
+        $('canvas').remove();
+        $('.level-element').remove();
+        startNext();
+    });
+}
 

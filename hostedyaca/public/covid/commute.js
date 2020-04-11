@@ -17,6 +17,8 @@ function setUpCommute(transportationMode) {
         }
     });
 
+    $("body").append(`<h1 class='level-title level-element' style="${titleStyle}">Commute to work  ⍇ ⍐ ⍗ ⍈</h1>`);
+
     /* frame */
     const ceiling = Bodies.rectangle(wWidth/2, 0+5, wWidth, 10, { isStatic: true, label: 'ground' });
     const ground = Bodies.rectangle(wWidth/2, wHeight-5, wWidth, 10, { isStatic: true, label: 'ground' });
@@ -29,7 +31,7 @@ function setUpCommute(transportationMode) {
     car.bodies.map(carPart => {
         carPart.label = 'car';
         // carPart.friction = 2;
-    })
+    });
 
 
     World.add(engine.world, [ceiling, ground, wallLeft, wallRight, car]);
@@ -79,7 +81,7 @@ function setUpCommute(transportationMode) {
                 // todo should be a factor by X times each infected person
             }
             if (labels.includes('car') && labels.includes('workplace')) {
-                // todo level done
+                setUpFinishLevel(createLevel3);
             }
         });
     });

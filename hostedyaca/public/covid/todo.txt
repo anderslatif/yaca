@@ -1,6 +1,7 @@
 todo: create a continue button
-todo: handle collision detection in newton's cradle for few amount of balls
-todo: deal with people living alone .... infected after a certain amount of time?
+todo: make it work on different screen sizes
+
+todo: In newton's cradle make one green after 5 seconds and then only infect others if they touch a green
 
 
 Slingshot + basket hoop

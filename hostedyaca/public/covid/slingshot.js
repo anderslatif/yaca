@@ -17,8 +17,6 @@ function setUpSlingshot() {
     });
 
     let goals = 5;
-    const titleStyle = `position: absolute; color: white; 
-                    left: ${wWidth/3}px; top: 20px`;
     const scoreboardStyle = `position: absolute; color: white; 
                         left: ${wWidth/3}px; top: 80px`;
     const scoreboard = `<h3 class='scoreboard level-element' style="${scoreboardStyle}">Work tasks left: ${goals}</h3>`;
