@@ -64,7 +64,7 @@ function setUpNewtonsCradle(amountOfBalls) {
     // run the renderer
     Render.run(render);
 
-    let isReadyForNextLevel = false;
+    let isGoingToNextLevel = false;
     Events.on(engine, 'collisionStart', (event) => {
         event.source.pairs.list.map(body => {
             body.bodyA.render.fillStyle = 'green';
@@ -72,8 +72,8 @@ function setUpNewtonsCradle(amountOfBalls) {
             // todo change the infected rate
         });
         const allGreen = cradle.bodies.every(ball => ball.render.fillStyle === 'green');
-        if (allGreen && !isReadyForNextLevel) {
-            isReadyForNextLevel = true;
+        if (allGreen && !isGoingToNextLevel) {
+            isGoingToNextLevel = true;
             setUpFinishLevel(preLevel2);
         }
     });
@@ -85,7 +85,7 @@ function setUpNewtonsCradle(amountOfBalls) {
                 ball.render.fillStyle = 'green';
             })
             setUpFinishLevel(preLevel2);
-        }, 1000 * 15);
+        }, 1000 * 10);
     }
 
 

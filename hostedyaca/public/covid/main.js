@@ -34,25 +34,25 @@ let currentLevel;
 /* styles */
 const divWrapper = `display: flex; align-items: center; justify-content: center; position: absolute;`;
 const fontColorWhite = `color: white;`
-const titleStyle = `position: absolute; color: white; 
-                    left: ${wWidth/3}px; top: 20px`;
-
+const titleStyle = `position: absolute; color: white; top: 20px;`;
 
 /* the level flow: uncomment as needed */
 // preLevel1();
-createLevel1(2);
+// createLevel1(2); // change the argument 
 // preLevel2();
-// createLevel2();
-// createLevel3();
+// createLevel2('public'); // change the modeOfTransport
+createLevel3();
 // createFinalScreen();
 
 // todo undo
 // preLevel1();
 function preLevel1() {
-    $('body').prepend(`<div class="text-wrapper level-element" style="${divWrapper}"></div>`);
-    $('.text-wrapper').append(`<h2 id="numberOfPeopleText" style="${fontColorWhite}">I live with 6 people</h2>`);
-    $('.text-wrapper').append(`<input type="range" id="numberOfPeople" min="0" max="11" />`);
-    $('.text-wrapper').append(`<input id="begin" type="submit" value="Begin">`);
+    $('body').append(`<div class="wrapper level-element" style="${divWrapper}"></div>`);
+    $('.wrapper').append(`<p style="${fontColorWhite}">Play the Covid-19 game!</p>`)
+    $('.wrapper').append(`<h2 id="numberOfPeopleText" style="${fontColorWhite}">I live with 6 people</h2>`);
+    $('.wrapper').append(`<p style="${fontColorWhite} font-size: 0.7em;">Select below</p>`);
+    $('.wrapper').append(`<input type="range" id="numberOfPeople" min="0" max="11" style="margin-bottom: 2em;" />`);
+    $('.wrapper').append(`<input id="begin" class="btn" type="submit" value="Begin">`);
     let amountOfPeople = $('#numberOfPeople').val(); 
     $('#numberOfPeople').on('change', (event) => {
         amountOfPeople = $('#numberOfPeople').val();
@@ -62,7 +62,7 @@ function preLevel1() {
             $('#numberOfPeopleText').text("I live with 1 person");
         } else if (amountOfPeople == 11) {
             $('#numberOfPeopleText').text(`I live with ${amountOfPeople-1} people`);
-            $('#numberOfPeopleText').append(`<p style="${fontColorWhite}">
+            $('#numberOfPeopleText').append(`<p style="${fontColorWhite} font-size: 0.5em;">
                                 You can't live with more than 10 people because of the restrictions</p>`);
         } else {
             $('#numberOfPeopleText').text(`I live with ${amountOfPeople} people`);
@@ -80,12 +80,12 @@ function createLevel1(amountOfPeople) {
 }
 
 function preLevel2() {
-    $('body').prepend(`<div class="text-wrapper level-element"></div>`);
-    $('.text-wrapper').append(`<h2 id="numberOfPeopleText" style="${fontColorWhite}">How do you commute to work?</h2>`);
-    $('.text-wrapper').append(`<h3 style="${fontColorWhite}">I care about the environment</h3>`);
-    $('.text-wrapper').append(`<input id="public-transport" type="submit" value="Public transportation">`);
-    $('.text-wrapper').append(`<h3 style="${fontColorWhite}">I don't care about the environment</h3>`);
-    $('.text-wrapper').append(`<input id="car" type="submit" value="By car">`);
+    $('body').append(`<div class="wrapper level-element"></div>`);
+    $('.wrapper').append(`<h2 id="numberOfPeopleText" style="${fontColorWhite}">How do you commute to work?</h2>`);
+    $('.wrapper').append(`<p style="${fontColorWhite}">I care about the environment</p>`);
+    $('.wrapper').append(`<input id="public-transport" class="btn" type="submit" value="Public transportation">`);
+    $('.wrapper').append(`<p style="${fontColorWhite}">I don't care about the environment</p>`);
+    $('.wrapper').append(`<input type="submit" id="car" class="btn" value="By car">`);
     $('#public-transport').click((event) => {
         $('.level-element').remove();
         createLevel2('public');
@@ -97,36 +97,46 @@ function preLevel2() {
 }
 
 function createLevel2(transportationMode) {
+    $('body').append(`<div class="wrapper level-element" style="${divWrapper}"></div>`);
+    $(".wrapper").append(`<h2 class='level-title level-element' style="${titleStyle}">Commute to work  ⍇ ⍐⍗ ⍈</h2>`);
+
+    if (transportationMode === 'public') {
+        $(".wrapper").append(`<p class='level-title level-element' style="${titleStyle} font-size: 0.6em">Avoid the public</p>`);
+    }
+    
     setUpCommute(transportationMode);
 }
 
 function createLevel3() {
-    setUpSlingshot();
+    const workTasks = 5;
+
+    setUpSlingshot(workTasks);
 }
 
 function createFinalScreen() {
-    $('body').prepend(`<div class="text-wrapper level-element"></div>`);
+    $('body').append(`<div class="wrapper level-element"></div>`);
     const numberOfPeopleKilled = infectedStats.numbersInfectedAtHome + 0 
                                 + infectedStats.numbersInfectedDuringTransports * 2 * infectedStats.internationalAverageAmountOfPeoplePerHome 
                                 + infectedStats.numbersInfectedAtWork * infectedStats.internationalAverageAmountOfPeoplePerHome; 
-    $('.text-wrapper').append(`<h2 id="numberOfPeopleText" style="${fontColorWhite}">
+    $('.wrapper').append(`<h2 id="numberOfPeopleText" style="${fontColorWhite}">
                                 Congrats! You killed ${numberOfPeopleKilled} amount of people.</h2>`);
     // todo Show the calculation
-    $('.text-wrapper').append(`<input id="again" type="submit" value="Do it again">`);
+    $('.wrapper').append(`<p class="small-text" style="${fontColorWhite}">
+            This is based on pure guesstimation. Listen to the experts - not this silly game.</p>`);
+    $('.wrapper').append(`<input id="again" class="btn" type="submit" value="Do it again">`);
     $('#again').click((event) => {
         $('.level-element').remove();
         preLevel1();
     });
 }
 
-function setUpFinishLevel(startNext) {
-    console.log("once");
-    $('body').prepend(`<div class="text-wrapper level-element" style="${divWrapper}"></div>`);
-    $('.text-wrapper').append(`<input type="button" class="done-btn level-element" value="Done?" />`);
+function setUpFinishLevel(startNextLevel) {
+    $('body').append(`<div class="wrapper-right level-element"></div>`);
+    $('.wrapper-right').append(`<input type="button" class="done-btn btn level-element" value="Next Level?" />`);
     $('.done-btn').click(() => {
         $('canvas').remove();
         $('.level-element').remove();
-        startNext();
+        startNextLevel();
     });
 }
 

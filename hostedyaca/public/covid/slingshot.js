@@ -1,4 +1,4 @@
-function setUpSlingshot() {
+function setUpSlingshot(workTasks) {
 
     // create an engine
     const engine = Engine.create();
@@ -16,12 +16,12 @@ function setUpSlingshot() {
         }
     });
 
-    let goals = 5;
-    const scoreboardStyle = `position: absolute; color: white; 
-                        left: ${wWidth/3}px; top: 80px`;
-    const scoreboard = `<h3 class='scoreboard level-element' style="${scoreboardStyle}">Work tasks left: ${goals}</h3>`;
-    $("body").append(`<h1 class='level-title level-element' style="${titleStyle}">
-                            Accomplish your work goals ${scoreboard}</h1>`);
+    const scoreboardStyle = `position: absolute; color: white; top: 80px;`;
+    const scoreboard = `<h3 class='scoreboard level-element' style="${scoreboardStyle} margin-left: 3vw; font-size: 0.9em;">
+                        Work tasks left: ${workTasks}</h3>`;
+    $("body").append(`<h3 class='level-title level-element' style="${titleStyle} margin-left: 3vw;">
+                            Accomplish your work goals ${scoreboard}</h3>`);
+
 
 
     function createImage(text) {
@@ -66,7 +66,7 @@ function setUpSlingshot() {
     });
     // Every time a ball is released it gets added to the array
     // I use the array to check if the released balls went through the hoop
-    let balls = [];
+    let balls = [ball];
 
     const backboard = Bodies.rectangle(wWidth/2+100+5 + wWidth/3, 100-(10*2), 10, 100, 
                         { isStatic: true, label: 'backboard', render: { fillStyle: '#1919FF'} });
@@ -122,7 +122,9 @@ function setUpSlingshot() {
         }
     });
 
+    let goals = workTasks;
     let coolDown = 0
+    let isGoingToNextLevel = false;
 
     Events.on(engine, 'tick', function() {
         if (mouseConstraint.mouse.button === -1 && (ball.position.x > wWidth/2+30 || ball.position.y < 430)) {
@@ -139,15 +141,24 @@ function setUpSlingshot() {
                 && balls[i].position.y > 125 
                 && balls[i].position.y < 135
                 && coolDown > 2) {
-                goals--;
-                $('.scoreboard').text(`Work tasks left: ${goals}`)
+                if (goals > 0 && !isGoingToNextLevel) {
+                    goals--;
+                    $('.scoreboard').text(`Work tasks left: ${goals}`);
+                    if (goals === 0 && !isGoingToNextLevel) {
+                        isGoingToNextLevel = true;
+                        setUpFinishLevel(createFinalScreen);
+                    }
+                } else {
+                    goals++;
+                    $('.scoreboard').text(`Overtime tasks completed: ${goals}`);
+                }
                 coolDown = 0;
             }
         }
     });
 
     Events.on(engine, 'collisionStart', (event) => {
-        event.source.pairs.collisionActive.map( ({ bodyA, bodyB }) => {
+        event.source.pairs.list.map( ({ bodyA, bodyB }) => {
 
             const labels = bodyA.label + bodyB.label;
             if (labels.includes('ballRectangle Body') || labels.includes('Rectangle Bodyball')) {

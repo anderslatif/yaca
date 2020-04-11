@@ -1,24 +1,26 @@
-todo: create a continue button
 todo: make it work on different screen sizes
 
 todo: In newton's cradle make one green after 5 seconds and then only infect others if they touch a green
 
+todo: add to the infected score and do the final calculation
+
+
+
+
+
+
+
+
+
+
+
+todo: search the code for all the todos and complete them
+
+todo: change the HTML document title
 
 Slingshot + basket hoop
 Implement the hoop in Matter.js by using collision filtering: 
 https://github.com/liabru/matter-js/blob/master/examples/collisionFiltering.js
-
-
-
-
-
-
-
-
-
-
-
-
 
 ----------------------------------------------------------------------
 About
