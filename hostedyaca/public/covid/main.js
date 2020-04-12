@@ -146,6 +146,7 @@ function createFinalScreen() {
                                 Congrats! You killed ${numberOfPeopleKilled} amount of people.</h2>`);
     // todo Show the calculation
     // todo Math.floor(); whenever it involves people count
+    // todo hover style 
     $('.wrapper').append(`<p class="small-text" style="${fontColorWhite}">
             This is based on pure guesstimation. Listen to the experts - not this silly game.</p>`);
     $('.wrapper').append(`<input id="again" class="btn" type="submit" value="Do it again">`);

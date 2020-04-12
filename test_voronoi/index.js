@@ -6,9 +6,6 @@ var bbox, diagram;
 var oldSize = view.size;
 var spotColor = new Color('red');
 var mousePos = view.center;
-var selected = false;
-
-onResize();
 
 function onMouseDown(event) {
 	sites.push(event.point);
@@ -48,7 +45,7 @@ function renderDiagram() {
 function removeSmallBits(path) {
 	var averageLength = path.length / path.segments.length;
 	var min = path.length / 50;
-	for(var i = path.segments.length - 1; i >= 0; i--) {
+	for (var i = path.segments.length - 1; i >= 0; i--) {
 		var segment = path.segments[i];
 		var cur = segment.point;
 		var nextSegment = segment.next;
@@ -62,25 +59,27 @@ function removeSmallBits(path) {
 function generateBeeHivePoints(size, loose) {
 	var points = [];
 	var col = view.size / size;
-	for(var i = -1; i < size.width + 1; i++) {
-		for(var j = -1; j < size.height + 1; j++) {
+	for (var i = -1; i < size.width + 1; i++) {
+		for (var j = -1; j < size.height + 1; j++) {
+			console.log(i/2)
+			
+
 			var point = new Point(i, j) / new Point(size) * view.size + col / 2;
-			if(j % 2)
+			if (j % 2) {
 				point += new Point(col.width / 2, 0);
-			if(loose)
+			}
+			if (loose) {
 				point += (col / 4) * Point.random() - col / 4;
+			}
 			points.push(point);
 		}
 	}
 	return points;
 }
+
 function createPath(points, center) {
 	var path = new Path();
-	if (!selected) { 
 		path.fillColor = spotColor;
-	} else {
-		path.fullySelected = selected;
-	}
 	path.closed = true;
 
 	for (var i = 0, l = points.length; i < l; i++) {
@@ -98,6 +97,8 @@ function createPath(points, center) {
 	return path;
 }
 
+onResize();
+
 function onResize() {
 	var margin = 20;
 	bbox = {
@@ -111,13 +112,6 @@ function onResize() {
 	}
 	oldSize = view.size;
 	renderDiagram();
-}
-
-function onKeyDown(event) {
-	if (event.key == 'space') {
-		selected = !selected;
-		renderDiagram();
-	}
 }
 
 
