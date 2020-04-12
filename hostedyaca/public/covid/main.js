@@ -30,7 +30,7 @@ let infectedStats = {
     internationalAverageAmountOfPeoplePerHome: 3 
 }
 
-let currentLevel;
+let originalTransportationModeChoice = 'public';
 
 /* styles */
 const divWrapper = `display: flex; align-items: center; justify-content: center; position: absolute;`;
@@ -41,11 +41,12 @@ const titleStyle = `position: absolute; color: white; top: 20px;`;
 // preLevel1();
 // createLevel1(10); // change the argument amountOfPeople
 // preLevel2();
-createLevel2('public'); // change the modeOfTransport
+// createLevel2('public'); // change the modeOfTransport
 // createLevel3();
 // createLevel4();
-// createLevel5('public');
-// createFinalScreen();
+// createLevel5();
+// createLevel6('public');
+createFinalScreen();
 
 // todo undo
 // preLevel1();
@@ -103,6 +104,8 @@ function createLevel2(transportationMode) {
     $('body').append(`<div class="wrapper level-element" style="${divWrapper}"></div>`);
     $(".wrapper").append(`<h2 class='level-title level-element' style="${titleStyle}">Commute to work  ⍇ ⍐⍗ ⍈</h2>`);
 
+    originalTransportationModeChoice = transportationMode;
+    
     if (transportationMode === 'public') {
         $(".wrapper").append(`<p class='level-title level-element' style="${titleStyle} font-size: 0.7em;">
                                 Avoid the public [squares]</p>`);
@@ -131,7 +134,7 @@ function createLevel5() {
 
 function createLevel6() {
     const isGoingHome = true;
-    setUpCommute(transportationMode, isGoingHome);
+    setUpCommute(originalTransportationModeChoice, isGoingHome);
 }
 
 function createFinalScreen() {
@@ -152,9 +155,10 @@ function createFinalScreen() {
     });
 }
 
+// when a player can continue on to the next level an event handler is created to let them continue at their own descretion
 function setUpFinishLevel(startNextLevel) {
     $('body').append(`<div class="wrapper-right level-element"></div>`);
-    $('.wrapper-right').append(`<input type="button" class="done-btn btn level-element" value="Next Level?" />`);
+    $('.wrapper-right').append(`<input type="button" class="done-btn btn level-element" value="Next?" />`);
     $('.done-btn').click(() => {
         $('canvas').remove();
         $('.level-element').remove();

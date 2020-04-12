@@ -24,22 +24,7 @@ function setUpCommute(transportationMode, isGoingHome) {
     const wallLeft = Bodies.rectangle(0+5, wHeight/3, 10, wHeight*1.5, { isStatic: true, label: 'ground' });
     const wallRight = Bodies.rectangle(wWidth-5, wHeight/3, 10, wHeight*1.5, { isStatic: true, label: 'ground' });
 
-    /* create goal */
-    if (isGoingHome) {
-        // todo 
-    } else {
-        const workPlace = Bodies.rectangle(wWidth-70, wHeight-60, 100, 100, { label: 'workplace', isStatic: true });
-        World.add(engine.world, [workPlace]);
-    }
-
-    /* car */
-    const scale = 0.9;
-    const car = Composites.car(150, 100, 150 * scale, 30 * scale, 30 * scale);
-    car.bodies.map(carPart => {
-        carPart.label = 'car';
-    });
-
-    World.add(engine.world, [ceiling, ground, wallLeft, wallRight, car]);
+    World.add(engine.world, [ceiling, ground, wallLeft, wallRight]);
 
     /* public */
     const public1 = Composites.stack(wWidth-70, wHeight/3, 5, 5, 0, 0, (x, y) => {
@@ -56,10 +41,10 @@ function setUpCommute(transportationMode, isGoingHome) {
         World.add(engine.world, [public1, public2, public3]);
     }
 
-    /* platforms */
+    let car;
+
     if (isGoingHome) {
-        // todo
-    } else {
+        /* platforms */
         const platformLength = column*7;
         const height = 10;
         const upperLeft = Bodies.rectangle(platformLength/2, wHeight/3, platformLength, height, 
@@ -69,7 +54,39 @@ function setUpCommute(transportationMode, isGoingHome) {
         const lowerLeft = Bodies.rectangle(platformLength/2, row*9, platformLength, height, 
             { isStatic: true, angle: Math.PI * 0.04 });
 
-        World.add(engine.world, [upperLeft, upperRight, lowerLeft]);
+        /* car */
+        const scale = 0.9;
+        car = Composites.car(wWidth-150, wHeight-100, 150 * scale, 30 * scale, 30 * scale);
+        car.bodies.map(carPart => {
+            carPart.label = 'car';
+        });
+
+        /* home */
+        const home = Bodies.rectangle(0+60, 0+60, 100, 100, { label: 'workplace', isStatic: true });
+
+        World.add(engine.world, [upperLeft, upperRight, lowerLeft, car, home]);
+    } else {
+        /* platforms */
+        const platformLength = column*7;
+        const height = 10;
+        const upperLeft = Bodies.rectangle(platformLength/2, wHeight/3, platformLength, height, 
+            { isStatic: true, angle: Math.PI * 0.06 });
+        const upperRight = Bodies.rectangle(wWidth-(platformLength/2), wHeight/2, platformLength, height, 
+            { isStatic: true, angle: -Math.PI * 0.06 });
+        const lowerLeft = Bodies.rectangle(platformLength/2, row*9, platformLength, height, 
+            { isStatic: true, angle: Math.PI * 0.04 });
+
+        /* car */
+        const scale = 0.9;
+        car = Composites.car(150, 100, 150 * scale, 30 * scale, 30 * scale);
+        car.bodies.map(carPart => {
+            carPart.label = 'car';
+        });
+
+        /* workplace */
+        const workPlace = Bodies.rectangle(wWidth-70, wHeight-60, 100, 100, { label: 'workplace', isStatic: true });
+
+        World.add(engine.world, [upperLeft, upperRight, lowerLeft, car, workPlace]);
     }
 
 
@@ -191,4 +208,13 @@ function setUpCommute(transportationMode, isGoingHome) {
         requestAnimationFrame(updateCar);
     }
     window.requestAnimationFrame(updateCar);
+
+    // if the game is played on an unusual screen size just allow the user to proceed
+    setTimeout(() => {
+        if (isGoingHome) {
+            setUpFinishLevel(createFinalScreen)
+        } else {
+            setUpFinishLevel(createLevel3);
+        }
+    }, 1000 * 120);
 }

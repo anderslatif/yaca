@@ -166,9 +166,9 @@ function setUpSlingshot(workTasks, isSecondPartOfDay) {
                     if (goals === 0 && !isGoingToNextLevel) {
                         isGoingToNextLevel = true;
                         if (isSecondPartOfDay) {
-                            setUpFinishLevel(createFinalScreen);
+                            setUpFinishLevel(createLevel6);
                         } else {
-                            setUpFinishLevel()
+                            setUpFinishLevel(createLevel4)
                         }                        
                     }
                 } else {
