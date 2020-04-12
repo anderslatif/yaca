@@ -1,8 +1,8 @@
-function setUpCommute(transportationMode) {
+function setUpCommute(transportationMode, isGoingHome) {
     // create an engine
     const engine = Engine.create();
 
-    // engine.world.gravity.y = 0.005;
+    engine.world.gravity.y = isGoingHome ? -1 : 1;
 
     // create a renderer
     const render = Render.create({
@@ -24,14 +24,20 @@ function setUpCommute(transportationMode) {
     const wallLeft = Bodies.rectangle(0+5, wHeight/3, 10, wHeight*1.5, { isStatic: true, label: 'ground' });
     const wallRight = Bodies.rectangle(wWidth-5, wHeight/3, 10, wHeight*1.5, { isStatic: true, label: 'ground' });
 
+    /* create goal */
+    if (isGoingHome) {
+        // todo 
+    } else {
+        const workPlace = Bodies.rectangle(wWidth-70, wHeight-60, 100, 100, { label: 'workplace', isStatic: true });
+        World.add(engine.world, [workPlace]);
+    }
+
     /* car */
     const scale = 0.9;
     const car = Composites.car(150, 100, 150 * scale, 30 * scale, 30 * scale);
     car.bodies.map(carPart => {
         carPart.label = 'car';
-        // carPart.friction = 2;
     });
-
 
     World.add(engine.world, [ceiling, ground, wallLeft, wallRight, car]);
 
@@ -39,22 +45,33 @@ function setUpCommute(transportationMode) {
     const public1 = Composites.stack(wWidth-70, wHeight/3, 5, 5, 0, 0, (x, y) => {
         return Bodies.rectangle(x, y, 10, 10, { label: 'public' });
     });
-    const public2 = Composites.stack(0+20, wHeight/3, 5, 5, 0, 0, (x, y) => {
+    const public2 = Composites.stack(0+20, row*4, 5, 5, 0, 0, (x, y) => {
         return Bodies.rectangle(x, y, 10, 10, { label: 'public' });
     });
-    const workPlace = Bodies.rectangle(wWidth-70, wHeight-60, 100, 100, { label: 'workplace', isStatic: true });
-
-    World.add(engine.world, [
-        workPlace,
-        /* platforms */
-        Bodies.rectangle(0+(wWidth/3), wHeight/3, wWidth*2/3, 10, { isStatic: true, angle: Math.PI * 0.06 }),
-        Bodies.rectangle(wWidth-(wWidth/3), 350, wWidth*2/3, 10, { isStatic: true, angle: -Math.PI * 0.06 }),
-        Bodies.rectangle(300, 560, wWidth*2/3, 10, { isStatic: true, angle: Math.PI * 0.04 }),    
-    ]);
+    const public3 = Composites.stack(0+20, row*10, 5, 5, 0, 0, (x, y) => {
+        return Bodies.rectangle(x, y, 10, 10, { label: 'public' });
+    });
 
     if (transportationMode === 'public') {
-        World.add(engine.world, [public1, public2]);
+        World.add(engine.world, [public1, public2, public3]);
     }
+
+    /* platforms */
+    if (isGoingHome) {
+        // todo
+    } else {
+        const platformLength = column*7;
+        const height = 10;
+        const upperLeft = Bodies.rectangle(platformLength/2, wHeight/3, platformLength, height, 
+            { isStatic: true, angle: Math.PI * 0.06 });
+        const upperRight = Bodies.rectangle(wWidth-(platformLength/2), wHeight/2, platformLength, height, 
+            { isStatic: true, angle: -Math.PI * 0.06 });
+        const lowerLeft = Bodies.rectangle(platformLength/2, row*9, platformLength, height, 
+            { isStatic: true, angle: Math.PI * 0.04 });
+
+        World.add(engine.world, [upperLeft, upperRight, lowerLeft]);
+    }
+
 
     // run the engine
     Engine.run(engine);
@@ -82,7 +99,11 @@ function setUpCommute(transportationMode) {
             }
             if (labels.includes('car') && labels.includes('workplace') && !isGoingToNextLevel) {
                 isGoingToNextLevel = true;
-                setUpFinishLevel(createLevel3);
+                if (isGoingHome) {
+                    setUpFinishLevel(createFinalScreen)
+                } else {
+                    setUpFinishLevel(createLevel3);
+                }
             }
         });
     });
@@ -139,12 +160,12 @@ function setUpCommute(transportationMode) {
         let pushRot = 0;
         
         // update variables
-        if (upPressed==false && downPressed==false) {
+        if (!upPressed && !downPressed) {
             velY = 0;
             velX = 0;
         }
 
-        if (downPressed == true) {
+        if (upPressed) {
             velY *= -1;
             velX *= -1;
         }
@@ -154,6 +175,7 @@ function setUpCommute(transportationMode) {
         if (rightPressed) {
             pushRot = 0.1;
         }
+
         carRotation += pushRot;
 
 

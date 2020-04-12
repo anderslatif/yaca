@@ -25,6 +25,7 @@ let render;
 let infectedStats = {
     numbersInfectedAtHome: 0,
     numbersInfectedDuringTransports: 0,
+    numbersInfectedDuringLunch: 0,
     numbersInfectedAtWork: 0,
     internationalAverageAmountOfPeoplePerHome: 3 
 }
@@ -37,11 +38,13 @@ const fontColorWhite = `color: white;`
 const titleStyle = `position: absolute; color: white; top: 20px;`;
 
 /* the level flow: uncomment as needed */
-preLevel1();
-// createLevel1(2); // change the argument 
+// preLevel1();
+// createLevel1(10); // change the argument amountOfPeople
 // preLevel2();
-// createLevel2('public'); // change the modeOfTransport
+createLevel2('public'); // change the modeOfTransport
 // createLevel3();
+// createLevel4();
+// createLevel5('public');
 // createFinalScreen();
 
 // todo undo
@@ -101,16 +104,34 @@ function createLevel2(transportationMode) {
     $(".wrapper").append(`<h2 class='level-title level-element' style="${titleStyle}">Commute to work  ⍇ ⍐⍗ ⍈</h2>`);
 
     if (transportationMode === 'public') {
-        $(".wrapper").append(`<p class='level-title level-element' style="${titleStyle} font-size: 0.6em">Avoid the public</p>`);
+        $(".wrapper").append(`<p class='level-title level-element' style="${titleStyle} font-size: 0.7em;">
+                                Avoid the public [squares]</p>`);
     }
     
-    setUpCommute(transportationMode);
+    const isGoingHome = false;
+    setUpCommute(transportationMode, isGoingHome);
 }
 
 function createLevel3() {
-    const workTasks = 5;
+    const workTasks = 4;
+    const isSecondPartOfDay = false;
+    setUpSlingshot(workTasks, isSecondPartOfDay);
+}
 
-    setUpSlingshot(workTasks);
+function createLevel4() {
+    // todo lunch:
+    setUpFinishLevel(createLevel5);
+}
+
+function createLevel5() {
+    const workTasks = 2;
+    const isSecondPartOfDay = true;
+    setUpSlingshot(workTasks, isSecondPartOfDay);
+}
+
+function createLevel6() {
+    const isGoingHome = true;
+    setUpCommute(transportationMode, isGoingHome);
 }
 
 function createFinalScreen() {
@@ -121,6 +142,7 @@ function createFinalScreen() {
     $('.wrapper').append(`<h2 id="numberOfPeopleText" style="${fontColorWhite}">
                                 Congrats! You killed ${numberOfPeopleKilled} amount of people.</h2>`);
     // todo Show the calculation
+    // todo Math.floor(); whenever it involves people count
     $('.wrapper').append(`<p class="small-text" style="${fontColorWhite}">
             This is based on pure guesstimation. Listen to the experts - not this silly game.</p>`);
     $('.wrapper').append(`<input id="again" class="btn" type="submit" value="Do it again">`);

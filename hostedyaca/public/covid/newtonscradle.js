@@ -16,14 +16,13 @@ function setUpNewtonsCradle(amountOfBalls) {
     });
 
 
-    function newtonsCradle(xx, yy, amountOfBalls, size, length) {
-        var newtonsCradle = Composite.create({ label: 'Newtons Cradle' });
+    function newtonsCradle(xx, yy, amountOfBalls, size, length, ballGap) {
+        let newtonsCradle = Composite.create({ label: 'Newtons Cradle' });
 
-        for (var i = 0; i < amountOfBalls; i++) {
-            var separation = 6,
-                circle = Bodies.circle(xx + i * (size * separation), yy + length, size, 
+        for (let i = 0; i < amountOfBalls; i++) {
+                circle = Bodies.circle(xx + i * (size * ballGap), yy + length, size, 
                             { inertia: Infinity, restitution: 1, friction: 0, frictionAir: 0.0001, slop: 1}),
-                constraint = Constraint.create({ pointA: { x: xx + i * (size * separation), y: yy }, bodyB: circle });
+                constraint = Constraint.create({ pointA: { x: xx + i * (size * ballGap), y: yy }, bodyB: circle });
 
             Composite.addBody(newtonsCradle, circle);
             Composite.addConstraint(newtonsCradle, constraint);
@@ -33,10 +32,15 @@ function setUpNewtonsCradle(amountOfBalls) {
     }
 
     const firstRowAmountOfBalls = amountOfBalls > 5 ? 5 : amountOfBalls;
-    const cradle = newtonsCradle(wWidth/2-300, wHeight/2, firstRowAmountOfBalls, 30, 200);
+
+    let ballGap = wWidth > 1200 ? wWidth/200 : wWidth/150;
+    const startColumnAdd = wWidth > 1700 ? column : column * 2; 
+    const startingXPosition = ballGap * firstRowAmountOfBalls + startColumnAdd;
+
+    const cradle = newtonsCradle(startingXPosition, wHeight/2, firstRowAmountOfBalls, column/4, 200, ballGap);
     let cradleSecondRow;
     if (amountOfBalls > 5) {
-        cradleSecondRow = newtonsCradle(wWidth/2-300, wHeight/3, amountOfBalls-5, 30, 200);
+        cradleSecondRow = newtonsCradle(startingXPosition, wHeight/3, amountOfBalls-5, column/4, 200, ballGap);
         World.add(engine.world, cradleSecondRow);
     }
 
@@ -66,29 +70,33 @@ function setUpNewtonsCradle(amountOfBalls) {
 
     let isGoingToNextLevel = false;
     Events.on(engine, 'collisionStart', (event) => {
-        event.source.pairs.list.map(body => {
-            body.bodyA.render.fillStyle = 'green';
-            body.bodyB.render.fillStyle = 'green';
-            // todo change the infected rate
+        event.source.pairs.list.map(({ bodyA, bodyB }) => {
+            if (bodyA.label === 'infected' || bodyB.label === 'infected') {
+                bodyA.render.fillStyle = 'green';
+                bodyA.label = 'infected';
+                bodyB.render.fillStyle = 'green';
+                bodyB.label = 'infected';
+            }
         });
-        const allGreen = cradle.bodies.every(ball => ball.render.fillStyle === 'green');
-        if (allGreen && !isGoingToNextLevel) {
+        const allInfected = cradle.bodies.every(ball => ball.label === 'infected');
+        if (allInfected && !isGoingToNextLevel) {
             isGoingToNextLevel = true;
+            infectedStats.numbersInfectedAtHome = amountOfBalls;
             setUpFinishLevel(preLevel2);
         }
     });
 
-    if (amountOfBalls === 1) {
-        setTimeout(() => {
-            cradle.bodies.map(ball => {
-                console.log(ball);
-                ball.render.fillStyle = 'green';
-            })
-            setUpFinishLevel(preLevel2);
-        }, 1000 * 10);
-    }
 
+    setTimeout(() => {
+        const playerBall = cradle.bodies[0];
+        playerBall.render.fillStyle = 'green';
+        playerBall.label = 'infected';
+    
+        if (amountOfBalls === 1) {
+            setUpFinishLevel(preLevel2);
+        }
+    }, 1000 * 7); 
+    // 1 day represented as 500 ms
+    // thus the player starts showing symptoms after 14 days
 
 }
-
-

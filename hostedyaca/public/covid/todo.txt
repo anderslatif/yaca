@@ -1,18 +1,23 @@
-todo: make it work on different screen sizes
 
-todo: In newton's cradle make one green after 5 seconds and then only infect others if they touch a green
+todo: crowded area level: http://paperjs.org/examples/voronoi/
+http://paperjs.org/examples/chain/
+Title: Lunch time!
+Food and Seat are Red and they turn Blue when hit
+
+todo: Go home (reverse gravity)
+
+
+
+
+
+
+
+
+
+
 
 todo: add to the infected score and do the final calculation
-
-
-
-
-
-
-
-
-
-
+Infected rate - Final kill rate based on official percentage 
 
 todo: search the code for all the todos and complete them
 
@@ -22,6 +27,4 @@ todo: change the HTML document title
 About
 Corona Virus texture
 https://pixabay.com/vectors/corona-coronavirus-virus-pandemic-4919644/
-
-
 

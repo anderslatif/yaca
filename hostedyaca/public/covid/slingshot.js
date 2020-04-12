@@ -1,4 +1,4 @@
-function setUpSlingshot(workTasks) {
+function setUpSlingshot(workTasks, isSecondPartOfDay) {
 
     // create an engine
     const engine = Engine.create();
@@ -82,40 +82,38 @@ function setUpSlingshot(workTasks) {
     const backboard = Bodies.rectangle(wWidth/2+100+5 + wWidth/3, 100-(10*2), 10, 100, 
     { isStatic: true, label: 'backboard', render: { fillStyle: '#1919FF'} });
     const particleOptions = { friction: 0.00001, label: 'hoop', render: { visible: false }};
-    const cloth = Composites.softBody(wWidth/2 + wWidth/3, 100, 5, 5, 8, 5, false, 8, particleOptions);
+    const net = Composites.softBody(wWidth/2 + wWidth/3, 100, 5, 5, 8, 5, false, 8, particleOptions);
 
     for (let i = 0; i < 5; i++) {
         if (i === 0 || i  === 4)  {
-            cloth.bodies[i].isStatic = true;
+            net.bodies[i].isStatic = true;
         }
     }
 
-    World.add(engine.world, rim);
-    World.add(engine.world, [ball, elastic, backboard, cloth]);
+    World.add(engine.world, [elastic, rim, ball, backboard, net]);
 
     /* departments and coworkers */
-    let customText = { 
-                        sprite: {
-                            texture: createImage("Management")
+    const customText = (name) => {
+                        return { 
+                            sprite: {
+                                texture: createImage(name)
+                            }
                         }
                     }; 
 
-    const ground = Bodies.rectangle(wWidth/2, wHeight-20, wWidth, 10, { isStatic: true, label: 'ground', render: customText});
-    const wall = Bodies.rectangle(wWidth-5, wHeight/3, 10, wHeight*1.5, { isStatic: true, label: 'ground' });
+    const ground = Bodies.rectangle(wWidth/2, wHeight-20, wWidth, 10, 
+                                    { isStatic: true, label: 'ground', render: customText("Management")});
+    const wall = Bodies.rectangle(wWidth-(5/2), wHeight/3, 5, wHeight*1.5, { isStatic: true, label: 'ground' });
 
-    var pyramid = Composites.pyramid(500, 300, 9, 10, 0, 0, function(x, y) {
-        return Bodies.rectangle(x, y, 25, 40);
+    const pyramid = Composites.pyramid(wWidth/3, 300, 9, 10, 0, 0, function(x, y) {
+        return Bodies.rectangle(x, y, wWidth/50, wHeight/15);
     });
 
-    customText = { 
-                    sprite: {
-                        texture: createImage("HR")
-                    }
-                }; 
 
-    var ground2 = Bodies.rectangle(wWidth*1.5/2, wHeight*1.4/2, 200, 20, { isStatic: true , label: 'ground', render: customText });
+    const ground2 = Bodies.rectangle(wWidth*1.5/2, wHeight*1.4/2, 200, 20, 
+                                    { isStatic: true , label: 'ground'/* , render: customText("HR")  */});
 
-    var pyramid2 = Composites.pyramid(wWidth*1.5/2-(25*2), 0, 5, 10, 0, 0, (x, y) =>{
+    const pyramid2 = Composites.pyramid(wWidth*1.5/2-(25*2), 0, 5, 10, 0, 0, (x, y) =>{
         return Bodies.rectangle(x, y, 25, 40);
     });
 
@@ -156,18 +154,22 @@ function setUpSlingshot(workTasks) {
         }
         coolDown += 1;
 
-        for (var i = 0; i < balls.length; i++) {
-            if (balls[i].position.x > wWidth/2 + wWidth/3 + 5 
-                && balls[i].position.x < wWidth/2 + wWidth/3 + 5 + 200 
-                && balls[i].position.y > 125 
-                && balls[i].position.y < 135
+        balls.map(ball => {
+            if (ball.position.x > wWidth/2 + wWidth/3 + 5 
+                && ball.position.x < wWidth/2 + wWidth/3 + 5 + 200 
+                && ball.position.y > 125 
+                && ball.position.y < 135
                 && coolDown > 2) {
                 if (goals > 0 && !isGoingToNextLevel) {
                     goals--;
                     $('.scoreboard').text(`Work tasks left: ${goals}`);
                     if (goals === 0 && !isGoingToNextLevel) {
                         isGoingToNextLevel = true;
-                        setUpFinishLevel(createFinalScreen);
+                        if (isSecondPartOfDay) {
+                            setUpFinishLevel(createFinalScreen);
+                        } else {
+                            setUpFinishLevel()
+                        }                        
                     }
                 } else {
                     goals++;
@@ -175,7 +177,9 @@ function setUpSlingshot(workTasks) {
                 }
                 coolDown = 0;
             }
-        }
+            
+        });
+
     });
 
     Events.on(engine, 'collisionStart', (event) => {
@@ -183,9 +187,14 @@ function setUpSlingshot(workTasks) {
 
             const labels = bodyA.label + bodyB.label;
             if (labels.includes('ballRectangle Body') || labels.includes('Rectangle Bodyball')) {
-                bodyA.render.fillStyle = 'green';
-                bodyB.render.fillStyle = 'green';
-                // todo add to the infected score
+                if (bodyA.render.fillStyle !== 'green') {
+                    bodyA.render.fillStyle = 'green';
+                    infectedStats.numbersInfectedAtWork++;
+                }
+                if (bodyB.render.fillStyle !== 'green') {
+                    bodyB.render.fillStyle = 'green';
+                    infectedStats.numbersInfectedAtWork++;
+                }
             }
         });
     });
