@@ -11,21 +11,31 @@ app.use(express.static('public'));
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 
+const fs = require('fs');
+const visitorsTrackingFile = fs.readFileSync('visitors.json');
+const visitorsTracker = JSON.parse(visitorsTrackingFile);
+
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/public/index.html');
+    return res.sendFile(__dirname + '/public/index.html');
 });
 
 app.get('/snowmobiles', (req, res) => {
-    res.sendFile(__dirname + '/public/snowmobiles/index.html');
+    return res.sendFile(__dirname + '/public/snowmobiles/index.html');
 });
 
 app.get('/ratwars', (req, res) => {
-    res.sendFile(__dirname + '/public/ratwars/index.html');
+    return res.sendFile(__dirname + '/public/ratwars/index.html');
 });
 
-app.get('/covid', (req, res) => {
-    res.sendFile(__dirname + '/public/covid/index.html');
-});
+/*     try {
+        visitorsTracker.covidvisitors += 1;
+        const data = JSON.stringify(visitorsTracker);
+        fs.writeFileSync('visitors.json', data);
+    } catch {
+        const up = "Error updating the tracker file";
+        throw up;
+    } */
+
 
 let sockets = [];
 

@@ -4,7 +4,8 @@ var voronoi =  new Voronoi();
 var sites = generateBeeHivePoints(view.size / 200, true);
 var bbox, diagram;
 var oldSize = view.size;
-var spotColor = new Color('red');
+var colorBlue = new Color('blue');
+var colorGreen = new Color('green');
 var mousePos = view.center;
 
 function onMouseDown(event) {
@@ -61,9 +62,7 @@ function generateBeeHivePoints(size, loose) {
 	var col = view.size / size;
 	for (var i = -1; i < size.width + 1; i++) {
 		for (var j = -1; j < size.height + 1; j++) {
-			console.log(i/2)
 			
-
 			var point = new Point(i, j) / new Point(size) * view.size + col / 2;
 			if (j % 2) {
 				point += new Point(col.width / 2, 0);
@@ -79,13 +78,16 @@ function generateBeeHivePoints(size, loose) {
 
 function createPath(points, center) {
 	var path = new Path();
-		path.fillColor = spotColor;
+	path.fillColor = colorBlue;
 	path.closed = true;
 
 	for (var i = 0, l = points.length; i < l; i++) {
 		var point = points[i];
 		var next = points[(i + 1) == points.length ? 0 : i + 1];
 		var vector = (next - point) / 2;
+		if (i > 5) {
+			path.fillColor = colorGreen; 
+		}
 		path.add({
 			point: point + vector,
 			handleIn: -vector,

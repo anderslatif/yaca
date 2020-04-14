@@ -168,7 +168,8 @@ function setUpSlingshot(workTasks, isSecondPartOfDay) {
                         if (isSecondPartOfDay) {
                             setUpFinishLevel(createLevel6);
                         } else {
-                            setUpFinishLevel(createLevel4)
+                            // todo change back to level 4 to unskip lunch
+                            setUpFinishLevel(createLevel6)
                         }                        
                     }
                 } else {

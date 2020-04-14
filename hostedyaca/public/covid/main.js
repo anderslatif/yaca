@@ -24,10 +24,11 @@ let render;
 
 let infectedStats = {
     numbersInfectedAtHome: 0,
-    numbersInfectedDuringTransports: 0,
+    numbersInfectedDuringTransport: 0,
     numbersInfectedDuringLunch: 0,
     numbersInfectedAtWork: 0,
-    internationalAverageAmountOfPeoplePerHome: 3 
+    internationalAverageAmountOfPeoplePerHome: 2.4,
+    fatalityRate: 3.4
 }
 
 let originalTransportationModeChoice = 'public';
@@ -46,10 +47,10 @@ const titleStyle = `position: absolute; color: white; top: 20px;`;
 // createLevel4();
 // createLevel5();
 // createLevel6('public');
-createFinalScreen();
+// createFinalScreen();
 
 // todo undo
-// preLevel1();
+preLevel1();
 function preLevel1() {
     $('body').append(`<div class="wrapper level-element" style="${divWrapper}"></div>`);
     $('.wrapper').append(`<p style="${fontColorWhite}">Play the Covid-19 game!</p>`)
@@ -116,7 +117,7 @@ function createLevel2(transportationMode) {
 }
 
 function createLevel3() {
-    const workTasks = 4;
+    const workTasks = 6;
     const isSecondPartOfDay = false;
     setUpSlingshot(workTasks, isSecondPartOfDay);
 }
@@ -134,19 +135,46 @@ function createLevel5() {
 
 function createLevel6() {
     const isGoingHome = true;
+    $('body').append(`<div class="wrapper level-element" style="${divWrapper}"></div>`);
+    $(".wrapper").append(`<h2 class='level-title level-element' style="${titleStyle}">← Get back home</h2>`);
+
     setUpCommute(originalTransportationModeChoice, isGoingHome);
 }
 
 function createFinalScreen() {
     $('body').append(`<div class="wrapper level-element"></div>`);
-    const numberOfPeopleKilled = infectedStats.numbersInfectedAtHome + 0 
-                                + infectedStats.numbersInfectedDuringTransports * 2 * infectedStats.internationalAverageAmountOfPeoplePerHome 
-                                + infectedStats.numbersInfectedAtWork * infectedStats.internationalAverageAmountOfPeoplePerHome; 
+    const numberOfPeopleInfected = Math.round(infectedStats.numbersInfectedAtHome
+                                + infectedStats.numbersInfectedDuringTransport * infectedStats.internationalAverageAmountOfPeoplePerHome 
+                                + infectedStats.numbersInfectedAtWork * infectedStats.internationalAverageAmountOfPeoplePerHome); 
+    const numberOfPeopleKilled = Math.round(numberOfPeopleInfected * infectedStats.fatalityRate / 100);
+                                
     $('.wrapper').append(`<h2 id="numberOfPeopleText" style="${fontColorWhite}">
-                                Congrats! You killed ${numberOfPeopleKilled} amount of people.</h2>`);
-    // todo Show the calculation
-    // todo Math.floor(); whenever it involves people count
-    // todo hover style 
+                                Congrats! You killed ${numberOfPeopleKilled} people.</h2>`);
+    $('.wrapper').append(`<p class="text stats">Infected at home</p>`);
+    $('.wrapper').append(`<p class="stats number">${infectedStats.numbersInfectedAtHome}</p>`);
+
+    $('.wrapper').append(`<p class="text stats">Infected during transport</p>`);
+    const internationalAverageOfPeoplePerHomeLink =`
+            <p class="text stats">X international average amount of people per household [${infectedStats.internationalAverageAmountOfPeoplePerHome}] 
+            <a href="https://en.wikipedia.org/wiki/List_of_countries_by_number_of_households">1</a></p>`
+    $('.wrapper').append(internationalAverageOfPeoplePerHomeLink);
+    $('.wrapper').append(`<p class="stats number">
+            ${Math.round(infectedStats.numbersInfectedDuringTransport * infectedStats.internationalAverageAmountOfPeoplePerHome)}</p>`);
+
+    $('.wrapper').append(`<p class="text stats">Infected at work</p>`);
+    $('.wrapper').append(`<p class="stats number">
+            ${Math.round(infectedStats.numbersInfectedAtWork * infectedStats.internationalAverageAmountOfPeoplePerHome)}</p>`);
+
+    $('.wrapper').append(`<hr style="width: 40vw;">`);
+
+    $('.wrapper').append(`<p class="text stats">Total infected</p>`);
+    $('.wrapper').append(`<p class="stats number">${numberOfPeopleInfected}</p>`);
+
+    const fatalityRateLink = `<a href="https://www.who.int/dg/speeches/detail/who-director-general-s-opening-remarks-at-the-media-briefing-on-covid-19---3-march-2020">1</a>`;
+    $('.wrapper').append(`<p class="text stats">Estimated fatality rate ca. ${infectedStats.fatalityRate}% ${fatalityRateLink}</p>`);
+
+
+    
     $('.wrapper').append(`<p class="small-text" style="${fontColorWhite}">
             This is based on pure guesstimation. Listen to the experts - not this silly game.</p>`);
     $('.wrapper').append(`<input id="again" class="btn" type="submit" value="Do it again">`);

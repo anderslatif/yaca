@@ -12,14 +12,6 @@ Food and Seat are Red and they turn Blue when hit
 
 
 
-todo: increment in a text file on the backend every time someone accesses an endpoint
-
-todo: add to the infected score and do the final calculation
-Infected rate - Final kill rate based on official percentage
-
-todo: search the code for all the todos and complete them
-
-todo: change the HTML document title
 
 ----------------------------------------------------------------------
 About

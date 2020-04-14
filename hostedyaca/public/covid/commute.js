@@ -2,7 +2,7 @@ function setUpCommute(transportationMode, isGoingHome) {
     // create an engine
     const engine = Engine.create();
 
-    engine.world.gravity.y = isGoingHome ? -1 : 1;
+    engine.world.gravity.y = isGoingHome ? -0.8 : 1;
 
     // create a renderer
     const render = Render.create({
@@ -105,14 +105,13 @@ function setUpCommute(transportationMode, isGoingHome) {
             if (labels.includes('car') && labels.includes('public')) {
                 if (bodyA.label === 'public') {
                     bodyA.label = 'infected';
+                    infectedStats.numbersInfectedDuringTransport++;
                     // bodyA.render.fillStyle = 'green';
                 }
                 if (bodyB.label === 'public') {
-                    bodyB.label = 'infected';
+                    infectedStats.numbersInfectedDuringTransport++;
                     // bodyB.render.fillStyle = 'green';
                 }
-                // todo add to the infected score
-                // todo should be a factor by X times each infected person
             }
             if (labels.includes('car') && labels.includes('workplace') && !isGoingToNextLevel) {
                 isGoingToNextLevel = true;
