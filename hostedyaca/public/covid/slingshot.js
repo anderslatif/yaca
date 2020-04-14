@@ -111,7 +111,7 @@ function setUpSlingshot(workTasks, isSecondPartOfDay) {
 
 
     const ground2 = Bodies.rectangle(wWidth*1.5/2, wHeight*1.4/2, 200, 20, 
-                                    { isStatic: true , label: 'ground'/* , render: customText("HR")  */});
+                                    { isStatic: true , label: 'ground', render: customText("HR") });
 
     const pyramid2 = Composites.pyramid(wWidth*1.5/2-(25*2), 0, 5, 10, 0, 0, (x, y) =>{
         return Bodies.rectangle(x, y, 25, 40);
