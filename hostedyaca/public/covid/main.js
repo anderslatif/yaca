@@ -184,14 +184,20 @@ function createFinalScreen() {
     });
 }
 
-// when a player can continue on to the next level an event handler is created to let them continue at their own descretion
+// when a player can continue on to the next level an event handler is created 
+// to let them continue at their own descretion
+let isShowingDoneButton = false;
 function setUpFinishLevel(startNextLevel) {
-    $('body').append(`<div class="wrapper-right level-element"></div>`);
-    $('.wrapper-right').append(`<input type="button" class="done-btn btn level-element" value="Next?" />`);
-    $('.done-btn').click(() => {
-        $('canvas').remove();
-        $('.level-element').remove();
-        startNextLevel();
-    });
+    if (!isShowingDoneButton) {
+        isShowingDoneButton = true;
+        $('body').append(`<div class="wrapper-right level-element"></div>`);
+        $('.wrapper-right').append(`<input type="button" class="done-btn btn level-element" value="Next?" />`);
+        $('.done-btn').click(() => {
+            $('canvas').remove();
+            $('.level-element').remove();
+            isShowingDoneButton = false;
+            startNextLevel();
+        });
+    }
 }
 

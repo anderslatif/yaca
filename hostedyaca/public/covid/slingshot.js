@@ -21,6 +21,7 @@ function setUpSlingshot(workTasks, isSecondPartOfDay) {
                         Work tasks left: ${workTasks}</h3>`;
     $("body").append(`<h3 class='level-title level-element' style="${titleStyle} margin-left: 3vw;">
                             Accomplish your work goals ${scoreboard}</h3>`);
+    $(".level-title").append(`<p style="${scoreboardStyle} font-size: 0.7em">Pull yourself [green virus] downwards - to the left and let go</p>`)
 
 
 

@@ -59,6 +59,9 @@ function setUpCommute(transportationMode, isGoingHome) {
         car = Composites.car(wWidth-150, wHeight-100, 150 * scale, 30 * scale, 30 * scale);
         car.bodies.map(carPart => {
             carPart.label = 'car';
+            if (isGoingHome) {
+                carPart.density = 0.0005;
+            }
         });
 
         /* home */
@@ -215,5 +218,5 @@ function setUpCommute(transportationMode, isGoingHome) {
         } else {
             setUpFinishLevel(createLevel3);
         }
-    }, 1000 * 120);
+    }, 1000 * 160);
 }

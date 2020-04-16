@@ -6,9 +6,7 @@ Food and Seat are Red and they turn Blue when hit
 
 
 
-
-
-
+Raise the percentage level
 
 
 
