@@ -1,0 +1,5 @@
+Inspiration
+https://www.codeproject.com/articles/395453/html5-jigsaw-puzzle
+https://www.codeproject.com/Articles/117037/WPF-Jigsaw-Puzzle
+
+
