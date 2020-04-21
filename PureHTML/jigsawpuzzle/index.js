@@ -1,3 +1,4 @@
+
 Array.prototype.remove = function(start, end) {
     this.splice(start, end);
     return this;
@@ -7,7 +8,6 @@ view.currentScroll = new Point(0, 0);
 var scrollVector = new Point(0,0);
 var scrollMargin = 32;
 
-$('#puzzle-image').attr('src', './assets/Earth.png');
 
 var imgWidth = $('.puzzle-image').css('width').replace('px', '');
 var imgHeight = $('.puzzle-image').css('height').replace('px', '');
@@ -98,11 +98,11 @@ function Html5Puzzle(config) {
     this.tiles = createTiles(this.tilesPerRow, this.tilesPerColumn);
 
     function createTiles(xTileCount, yTileCount) {
-        var tiles = new Array();
+        var tiles = [];
         var tileRatio = instance.tileWidth / 100.0;
 
         var shapeArray = getRandomShapes(xTileCount, yTileCount);
-        var tileIndexes = new Array();
+        var tileIndexes = [];
         for (var y = 0; y < yTileCount; y++) {
             for (var x = 0; x < xTileCount; x++) {
 
@@ -161,7 +161,7 @@ function Html5Puzzle(config) {
     }
 
     function getRandomShapes(width, height) {
-        var shapeArray = new Array();
+        var shapeArray = [];
 
         for (var y = 0; y < height; y++) {
             for (var x = 0; x < width; x++) {
@@ -184,12 +184,12 @@ function Html5Puzzle(config) {
                     rightTab = 0;
 
                 shapeArray.push(
-                    ({
+                    {
                         topTab: topTab,
                         rightTab: rightTab,
                         bottomTab: bottomTab,
                         leftTab: leftTab
-                    })
+                    }
                 );
             }
         }
@@ -438,8 +438,7 @@ function Html5Puzzle(config) {
                         tile.opacity = .5;
                         project.activeLayer.addChild(tile);
                         return;
-                    }
-                    else {
+                    } else {
                         tile.opacity = 1;
                     }
                 }
