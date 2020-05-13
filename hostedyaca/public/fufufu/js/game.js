@@ -16,7 +16,7 @@
         lvl: 'levels/home.json',
     };
     this.query_params(URL_PARAMS);
-    console.log("url params",URL_PARAMS);
+    console.log("url params", URL_PARAMS);
     
     var Ticker = createjs.Ticker;
     var gipCanvas;
@@ -59,9 +59,9 @@
     var drawing = false; //drawing a line ?
 
     var vp = {
-        x:0,
-        y:0,
-        zoom:1,
+        x: 0,
+        y: 0,
+        zoom: 1,
         container: new createjs.Container(),
     }
 
@@ -311,11 +311,11 @@
         var new_lvl = {
             player:{
                 start:{
-                    x:5,
-                    y:3
+                    x: 5,
+                    y: 3
                 }
             },
-            bg:{
+            bg: {
                 src: src,
                 scale: parseFloat($('#scale').val()),
             },
@@ -341,10 +341,10 @@
         var bg = background.bg_img;
         var h = bg.height/SCALE*background.options.scale;
         var w = bg.width/SCALE*background.options.scale;
-        addLine([{x:0, y:h},{x:w, y:h}]) //bottom
-        addLine([{x:0, y:0},{x:w, y:0}]) //top
-        addLine([{x:-0.1, y:0},{x:0, y:h}]) //left
-        addLine([{x:w+0.1, y:0},{x:w, y:h}]) //right
+        addLine([{x: 0, y: h},{x: w, y: h}]) //bottom
+        addLine([{x: 0, y: 0},{x: w, y: 0}]) //top
+        addLine([{x: -0.1, y: 0},{x: 0, y: h}]) //left
+        addLine([{x: w+0.1, y: 0},{x: w, y: h}]) //right
     }
 
     this.addLine = function(coords) {
@@ -422,11 +422,11 @@
         player.updateAnimation(keys, paused);
         player.update();
 
-        //If we want image always centered:
+        //If we want image always centered: 
       //  vp.x = -(canvasWidth - lvl.bg.img.width*vp.zoom)/2;
       //  vp.y = -(canvasHeight - lvl.bg.img.height*vp.zoom)/2;
 
-        //If we want character always centered:
+        //If we want character always centered: 
         vp.x = -(canvasWidth)/2 + player.skin.x*vp.zoom;
         vp.y = -(canvasHeight)/2 + player.skin.y*vp.zoom;
 
@@ -502,8 +502,8 @@
                     break;
                     /*
                 case 't':
-                    var x = parseFloat(prompt("TP x:","0"));
-                    var y = parseFloat(prompt("TP y:","0"));
+                    var x = parseFloat(prompt("TP x: ","0"));
+                    var y = parseFloat(prompt("TP y: ","0"));
                     if (x && y) {
                         player.setPos(x, y);
                     }
@@ -518,7 +518,7 @@
                         if (lvl.tps === undefined) {
                             lvl.tps = [];
                         }
-                        lvl.tps.push({lvl:lvl_name, x:x, y:y})
+                        lvl.tps.push({lvl: lvl_name, x: x, y: y})
                     }
                     refreshIndicators();
                     break;
@@ -619,7 +619,7 @@
     this.game_parameters_validate = function() {
         lvl.gravity = parseFloat($('#gravity').val());
         world.SetGravity(new b2Vec2(0, lvl.gravity));
-        player.jetpack_activated = ($('#jetpack:checked').val() !== undefined);
+        player.jetpack_activated = ($('#jetpack: checked').val() !== undefined);
 
         paused = false;
         game_parameters_modal = !game_parameters_modal;
