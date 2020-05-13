@@ -1,0 +1,66 @@
+
+
+
+
+
+
+
+-------------------------------------------------------------------------
+-------------------------------------------------------------------------
+
+
+IDEAS:
+
+    -- OTHERS --
+- redo (history)
+- dynamic world scale
+
+- red lines for "danger" (kill it with fire!)
+- tutorial level
+
+- editor buttons: help, options, new level, load level
+
+- free camera
+
+- jetpack
+
+- snap points for lines (!)
+
+- animations
+- sounds / music
+- hud
+
+- tp points / level set
+
+- top-down levels
+
+- coins
+- goals
+- ennemies
+
+- level sharing website
+
+- react ui ?
+
+BUGS:
+- ramp accel
+- pig spawn
+- stable URL (rawgit 301 preloadjs)
+
+
+FEEDBACK:
+- no goals
+- hard to add lines (needs panning) => unzoom/zoom
+- too static: dynamic items, ennemies,... => pigs ?
+- animations
+- player invisible on dark
+
+
+PIXLINGS (similar game):
+- step down and one-way platforms
+- jetpack like
+- paint-like wall drawing
+feedback: mario-like scrolling, online marketplace, dynamic items, 3D pictures
+
+MODALS FORMS :
+- Save previous settings for cancel.

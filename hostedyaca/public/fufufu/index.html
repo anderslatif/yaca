@@ -1,0 +1,155 @@
+<!doctype html>
+<head>
+    <meta charset="utf-8">
+    <title>Journey</title>
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+</head>
+<body>
+<div>
+    <h1 id="loading">Loading</h1>
+    <canvas id="gipCanvas"></canvas>
+</div>
+<div id="new_level">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">New level</h3>
+        </div>
+        <div class="panel-body">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label for="scale" class="col-sm-2 control-label">Scale</label>
+                    <div class="col-sm-10">
+                        <input type="number" step="0.1" class="form-control" id="scale" value="1.0">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="editor-background" class="col-sm-2 control-label">Image URL</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="editor-background">
+                        <p class="help-block">You can upload it to
+                            <a href="http://imgur.com">imgur</a> for example</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-danger cancel-newlevel">Cancel</button>
+                        <button type="submit" class="btn btn-success validate-newlevel">Create</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div id="load_level">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Load level</h3>
+        </div>
+        <div class="panel-body">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label for="editor-background" class="col-sm-2 control-label">URL</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" name="lvl">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-danger cancel-loadlevel">Cancel</button>
+                        <button type="submit" class="btn btn-success">Load</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div id="game_parameters">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Parameters</h3>
+        </div>
+        <div class="panel-body">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label for="scale-parameter" class="col-sm-2 control-label">Scale</label>
+                    <div class="col-sm-10">
+                        <input type="number" step="0.1" class="form-control" id="scale-parameter" value="1.0">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="gravity" class="col-sm-2 control-label">Gravity</label>
+                    <div class="col-sm-10">
+                        <input type="number" step="0.1" class="form-control" id="gravity" value="1.0">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" id="jetpack"> Jet Pack
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-danger cancel-parameters">Cancel</button>
+                        <button type="submit" class="btn btn-success validate-parameters">Validate</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div id="editor">
+    <ul>
+        <li><button class="draw mode"></button></li>
+        <li><button class="erase mode"></button></li>
+        <li><button class="spawn mode"></button></li>
+        <li class="spacer"></li>
+        <li><button class="undo"></button></li>
+        <li><button class="redo"></button></li>
+        <li class="spacer"></li>
+        <li><button class="unzoom"></button></li>
+        <li><button class="zoom"></button></li>
+        <!--
+            <li><button class="redo"></button></li>
+            <li><button class="help"></button></li>
+            <li><button class="settings"></button></li>
+            <li><button class="settings"></button></li>
+        -->
+    </ul>
+</div>
+
+<audio controls autoplay hidden loop>
+    <source src="./img/PuaLililehua.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+</audio> 
+
+
+<!-- libs -->
+<script src="libs/jquery-1.9.0.min.js"></script>
+<script src="libs/Box2dWeb-2.1.a.3.min.js"></script>
+<script src="libs/easeljs-0.7.1.min.js"></script>
+<script src="libs/preloadjs-0.6.0.min.js"></script>
+<script src="libs/filesave.js"></script>
+
+
+<!-- utils -->
+<script src="js/box2dutils.js"></script>
+<script src="js/easelJsUtils.js"></script>
+
+<!-- classes -->
+<script src="js/background.js"></script>
+<script src="js/line.js"></script>
+<script src="js/player.js"></script>
+
+<!-- game -->
+<script src="js/game.js"></script>
+
+</body>
+</html>

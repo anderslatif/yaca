@@ -1,0 +1,149 @@
+body, html {
+    background-color: #222;
+    margin: 0;
+    height: 100%;
+}
+#loading {
+    display: none;
+    color: white;
+    float: left;
+    font: 2em sans-serif;
+    position: absolute;
+    text-align: center;
+    top: 10px;
+    width: 100%;
+    z-index: 100;
+}
+#gipCanvas {
+    background-color: #222;
+    position: absolute;
+}
+#box2dCanvas {
+    position: absolute;
+    opacity: 0;
+}
+
+#new_level, #game_parameters, #load_level {
+    background-color: transparent;
+    position: absolute;
+    width: 30%;
+    margin-left: -15%;
+    top: 5%;
+    left: 50%;
+    padding: 5px;
+    display: none;
+}
+
+/*
+#new_level h3{
+    margin: 0;
+    padding: 5px;
+    text-align: center;
+    border-bottom: 1px solid #999;
+    margin-bottom: 10px;
+}
+
+#new_level input[type="text"] {
+    width: 100px;
+    margin-bottom: 10px;
+    font-size: 0.7rem;
+}
+*/
+
+#new_level #bg {
+    border: 4px solid black;
+}
+
+#editor {
+    pointer-events: none;
+    background-color: rgba(0,0,0,0);
+    position: absolute;
+    width: 100%;
+    height: 100px;
+    bottom: 0px;
+    font-family: sans-serif;
+    font-size: 0.8rem;
+    display: none;
+}
+
+#editor a:hover {
+    background: #fff;
+    color: black;
+}
+
+#editor button {
+    pointer-events: all;
+    border-radius: 10px;
+    font-size: 15px;
+    background: rgb(210, 210, 210);
+    text-decoration: none;
+    box-shadow: inset -5px -5px 10px rgb(171, 171, 171);
+    border: 1px solid rgb(111, 111, 111);
+    background-repeat: no-repeat;
+    padding: 20px;
+    background-position: center;
+}
+
+#editor button.mode {
+    padding: 25px;
+    border-radius: 50px;
+    background-color: rgb(210, 210, 210);
+    border: 1px solid rgb(111, 111, 111);
+}
+
+#editor button:hover {
+    cursor: pointer;
+    background-color: rgb(234, 234, 234);
+}
+
+#editor button.active {
+    padding: 30px;
+    margin: 0px;
+    background-color: rgb(255, 255, 255);
+    border-color:black;
+}
+
+#editor button.draw {
+    background-image: url("../img/buttons/pencil.png");
+}
+
+#editor button.erase {
+    background-image: url("../img/buttons/eraser.png");
+}
+
+#editor button.spawn {
+    background-image: url("../img/buttons/home.png");
+}
+
+#editor button.undo {
+    background-image: url("../img/buttons/undo.png");
+}
+
+#editor button.redo {
+    background-image: url("../img/buttons/redo.png");
+}
+
+#editor button.zoom {
+    background-image: url("../img/buttons/zoom.png");
+}
+
+#editor button.unzoom {
+    background-image: url("../img/buttons/unzoom.png");
+}
+
+#editor ul {
+    list-style: none;
+    text-align: center;
+}
+#editor li {
+    display: inline
+}
+
+#editor li.spacer{
+    margin: 20px;
+}
+
+#editor button img:focus,#editor button:focus {
+    outline: none;
+}
+
