@@ -31,7 +31,7 @@
         this.bitmap.x = this.x;
         this.bitmap.y = this.y;
 
-        this.BITMAP_SCALE = 0.2
+        this.BITMAP_SCALE = 0.5
         this.bitmap.scaleX = this.BITMAP_SCALE;
         this.bitmap.scaleY = this.BITMAP_SCALE;
         
