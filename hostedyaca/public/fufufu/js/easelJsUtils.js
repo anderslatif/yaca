@@ -21,12 +21,7 @@
                 }
                 this.stage.addChild(bitmap);
                 return bitmap;
-            },
-            
-
-            createPig: function(x, y, options) {
-                return this.createBitmap("img/pig.png", x, y, options);
-            },
+            }
 
     };
     

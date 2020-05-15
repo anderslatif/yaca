@@ -111,11 +111,6 @@
 				return playerObject;
 			},
 			
-			createPig : function(world, stage, x, y) {
-				var body = this.createBall(world, x, y, 30, false, 'pig');
-				return new Pig(body, stage, this.SCALE);
-			},
-			
 			createShortTree : function(world, stage, x, y) {
 				var body = this.createBall(world, x, y, 45, true, 'shortTree');
 				return new ShortTree(body, stage, x, y, this.SCALE);

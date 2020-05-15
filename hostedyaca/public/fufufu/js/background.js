@@ -27,7 +27,7 @@
             this.skin = bitmap;
         },
 
-        remove: function(){
+        remove: function() {
             this.container.removeChild(this.skin);
         }
 

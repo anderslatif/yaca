@@ -433,8 +433,8 @@
         vp.container.x = -vp.x;
         vp.container.y = -vp.y;
 
-        vp.container.scaleX = vp.zoom
-        vp.container.scaleY = vp.zoom
+        vp.container.scaleX = vp.zoom;
+        vp.container.scaleY = vp.zoom;
 
         stage.update();
     };
@@ -589,12 +589,12 @@
     }
 
     this.editor_erase_mode = function() {
-        this.change_mode('erase')
+        this.change_mode('erase');
         return true;
     }
 
     this.editor_spawn_mode = function() {
-        this.change_mode('spawn')
+        this.change_mode('spawn');
         return true;
     }
 
@@ -711,7 +711,7 @@
             }
         }
 
-        for(key in touch_pointers) {
+        for (key in touch_pointers) {
             if (key != -1) {
                 var coords = touch_pointers[key];
                 var x = coords.x;

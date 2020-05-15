@@ -22,27 +22,27 @@
 			this.update_graphics();
 		},
 
-		update_physics: function(){
-			if(this.body == null){
-				if(this.coords[0].x != this.coords[1].x || this.coords[0].y != this.coords[1].y){
+		update_physics: function() {
+			if (this.body == null) {
+				if (this.coords[0].x != this.coords[1].x || this.coords[0].y != this.coords[1].y) {
 					this.body = this.box2dUtils.addPhysicLine(
 						this.world,this.coords)
 				}
-			}else{
+			} else {
 				this.body.DestroyFixture(this.body.GetFixtureList())
 				this.box2dUtils.addLineFixture(this.body, this.coords)
 			}
 		},
 
-		update_graphics: function(){
+		update_graphics: function() {
 			var line = this.skin;
 			line.graphics.clear();
 			line.graphics.setStrokeStyle(3);
 			var color = 'orange';
-			if (this.body == null){
+			if (this.body == null) {
 				color = 'red';
 			}
-			if (this.selected){
+			if (this.selected) {
 				color = 'orangered';
 			}
 			line.graphics.beginStroke(color);
@@ -61,17 +61,20 @@
 		},
 
 		remove: function() {
-			if(this.body){
+			if (this.body) {
 				this.world.DestroyBody(this.body);
 			}
 			this.stage.removeChild(this.skin);
 		},
 
 		center: function() {
-			return {x:(this.coords[0].x+this.coords[1].x)/2, y:(this.coords[0].y+this.coords[1].y)/2}
+			return { 
+				x:(this.coords[0].x+this.coords[1].x)/2, 
+				y:(this.coords[0].y+this.coords[1].y)/2 
+			};
 		},
 
-		dist: function(p){
+		dist: function(p) {
 			var c = this.center()
 			return Math.abs(c.x-p.x)+Math.abs(c.y-p.y);
 		},
