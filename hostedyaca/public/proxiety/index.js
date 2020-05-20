@@ -27,7 +27,7 @@ function draw() {
 
 const scale = ['C', 'D', 'E', 'F', 'G', 'A', 'B'];
 
-canvas.addEventListener('mousemove', (event) => {
+/* canvas.addEventListener('mousemove', (event) => {
     const mouseX = event.offsetX;
     const mouseY = event.offsetY;
 
@@ -43,7 +43,25 @@ canvas.addEventListener('mousemove', (event) => {
 
         instrument.play(scale[Math.floor(rand(0, scale.length-1))] + '4');
     }
-});
+}); */
+
+canvas.addEventListener("touchstart", (event) => {
+    const mouseX = event.offsetX;
+    const mouseY = event.offsetY;
+
+    const pixel = ctx.getImageData(mouseX, mouseY, 1, 1).data;
+    if (pixel[3] !== 255 && instrument) { // black color
+        // const amountOfSections = 30; // aka note range
+        // const cursorInSection = Math.round(mouseX / canvas.width * amountOfSections);
+
+        // const baseNote = 45;
+
+        // instrument.play(baseNote + cursorInSection);
+
+
+        instrument.play(scale[Math.floor(rand(0, scale.length-1))] + '4');
+    }
+}, false);
 
 function rand(min, max) {
     return Math.random() * (max-min) + min;
