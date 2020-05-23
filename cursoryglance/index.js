@@ -1,8 +1,11 @@
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 
-const canvasWidth = window.innerWidth;
-const canvasHeight = window.innerHeight;
+const canvasWidth = canvas.clientWidth;
+const canvasHeight = canvas.clientHeight;
+
+const gridWidth = canvasWidth / 10;
+const gridHeight = canvasHeight / 10;
 
 let mouseX = canvasWidth / 2;
 let mouseY = canvasHeight / 2;
@@ -42,9 +45,11 @@ function draw() {
         */
 
         if (replayFrame < replay.length) {
+            ctx.save();
             const replayPos = replay[replayFrame];
             ctx.fillStyle = 'grey';
             ctx.fillRect(replayPos[0], replayPos[1], 10, 10);
+            ctx.restore();
             replayFrame++;
         } else {
             // end replay
@@ -66,11 +71,13 @@ function draw() {
 
     }
 
-    if (!showingReplay && mouseX > 490 && mouseY > 490) {
+    if (!showingReplay && mouseX > canvasWidth - 10 && mouseY > canvasHeight - 10) {
         // replays.push([replay]);
         // replay = [];
         showingReplay = true;
     }
+
+    drawLevel1();
 
     requestAnimationFrame(draw);
 }
@@ -84,11 +91,11 @@ document.addEventListener('mousemove', () => {
 
 });
 
-document.addEventListener('touchstart', () => {
+/* document.addEventListener('touchstart', () => {
 });
 
 document.addEventListener('touchmove', () => {
 });
 
 document.addEventListener('touchend', () => {
-})
+}) */
