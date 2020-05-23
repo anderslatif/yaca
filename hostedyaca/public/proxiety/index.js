@@ -2,7 +2,7 @@ const canvas = document.getElementById('game');
 const ctx = canvas.getContext("2d");
 
 canvas.width = window.innerWidth;
-canvas.height = window.innerHeight
+canvas.height = window.innerHeight;
 
 let instrument;
 
@@ -15,7 +15,11 @@ function init() {
     draw();
 };
 
-// harp create a note when hitting the white spaces
+// todo: different instruments / different colors?
+
+// todo: touch
+// https://stackoverflow.com/questions/37113082/detecting-hover-or-mouseover-on-smartphone-browser
+// https://developer.mozilla.org/en-US/docs/Web/API/Touch_events
 
 function draw() {
     // ctx.clearRect(0, 0, canvas.width, canvas.height);

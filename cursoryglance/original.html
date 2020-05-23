@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+    <body style='background: black' onmousemove="updateMousePos(event)"
+    ontouchstart="touchStart(event)"
+    ontouchmove="touchMove(event)"
+    ontouchend="touchEnd(event)"
+    >
+   <canvas  id="canvas" width="500" height="500" style='border:1px solid black; margin: 20px; background: white;'></canvas>
+
+
+
+<script type="text/javascript">
+
+var cv = document.getElementById('canvas');
+var ctx = cv.getContext('2d');
+var cvWidth = cv.width;
+var cvHeight = cv.height;
+
+var mouse = {x:100, y:100};
+var mouse_center = {x: 250, y: 250}
+
+function updateMousePos(evt) {
+    var rect = cv.getBoundingClientRect();
+    mouse = {
+      x: evt.clientX - rect.left,
+      y: evt.clientY - rect.top,
+    };
+}
+
+function touchStart(evt) {
+    if (evt.touches.length > 1) return;
+    var rect = cv.getBoundingClientRect();
+    mouse_center = {
+      x: evt.touches[0].clientX - rect.left,
+      y: evt.touches[0].clientY - rect.top,
+    };
+}
+
+function touchEnd(evt) {
+    if (evt.touches.length > 1) return;
+    mouse = mouse_center;
+}
+
+function touchMove(evt) {
+    if (evt.touches.length > 1) return;
+    evt.preventDefault();
+    var rect = cv.getBoundingClientRect();
+    mouse = {
+      x: evt.touches[0].clientX - rect.left,
+      y: evt.touches[0].clientY - rect.top,
+    };
+}
+
+function pimp_my_rect(a) {
+    return {
+        left: a[0],
+        right: a[0] + a[2],
+        top: a[1],
+        bottom: a[1] + a[3],
+    }
+}
+
+function intersect(a, b) {
+  return (a.left <= b.right &&
+          b.left <= a.right &&
+          a.top <= b.bottom &&
+          b.top <= a.bottom)
+}
+
+function rect() {
+    return Array.from(arguments);
+}
+
+var p = {
+    x: 0,
+    y: 0,
+    vx: 0.05,
+    vy: 0.05,
+}
+
+var levels = [
+    [
+    ],
+    [
+        rect(0, 100, 300, 20),
+        rect(100, 200, 20000, 20),
+
+        rect(20, 120, 20, 20),
+        rect(20, 160, 20, 20),
+        rect(20, 200, 20, 20),
+        rect(20, 240, 20, 20),
+        rect(20, 280, 20, 20),
+        rect(20, 320, 20, 20),
+        rect(20, 360, 20, 20),
+
+        rect(120, 240, 20, 20),
+        rect(120, 280, 20, 20),
+        rect(120, 320, 20, 20),
+        rect(120, 360, 20, 20),
+
+        rect(100, 400, 20000, 20),
+        rect(0, 400, 80, 20),
+    ],
+    [
+        rect(20, 60, 20, 350),
+        rect(60, 60, 20, 350),
+        rect(100, 60, 20, 350),
+        rect(140, 60, 20, 350),
+        rect(180, 60, 20, 350),
+        rect(220, 60, 20, 350),
+        rect(260, 60, 20, 350),
+        rect(300, 60, 20, 350),
+        rect(340, 60, 20, 350),
+        rect(380, 60, 20, 350),
+        rect(420, 60, 20, 350),
+        rect(460, 60, 20, 350),
+    ],
+    [
+        rect(200, 0, 200000, 20),
+        rect(200, 20, 200000, 20),
+        rect(200, 40, 200000, 20),
+        rect(300, 60, 200000, 20),
+        rect(400, 80, 200000, 20),
+
+        rect(0, 100, 100, 20),
+        rect(0, 120, 200, 20),
+        rect(0, 140, 300, 20),
+        rect(0, 160, 200, 20),
+        rect(0, 180, 100, 20),
+
+        rect(400, 180, 200000, 20),
+        rect(300, 200, 200000, 20),
+        rect(200, 220, 200000, 20),
+        rect(300, 240, 200000, 20),
+        rect(400, 260, 200000, 20),
+
+        rect(0, 240, 100, 20),
+        rect(0, 260, 200, 20),
+        rect(0, 280, 300, 20),
+        rect(0, 300, 200, 20),
+        rect(0, 320, 100, 20),
+
+        rect(400, 320, 200000, 20),
+        rect(300, 340, 200000, 20),
+        rect(200, 360, 200000, 20),
+        rect(300, 380, 200000, 20),
+        rect(400, 400, 200000, 20),
+
+        rect(0, 400, 100, 20),
+        rect(0, 420, 200, 20),
+        rect(0, 440, 300, 20),
+        rect(0, 460, 300, 20),
+        rect(0, 480, 300, 20),
+    ],
+    [
+        rect(20, 60, 20, 350),
+        rect(40, 80, 20, 100),
+        rect(80, 200, 20, 132),
+        rect(100, 20, 20, 340),
+
+        rect(190, 80, 20, 330),
+        rect(40, 80, 20, 100),
+        rect(80, 200, 20, 132),
+        rect(280, 20, 20, 340),
+
+        rect(380, 60, 20, 350),
+
+        rect(100, 20, 300, 20),
+
+        rect(20, 400, 400, 20),
+
+
+        rect(150, 280, 20, 20),
+        rect(140, 220, 20, 20),
+        rect(150, 150, 20, 20),
+        rect(140, 100, 20, 20),
+
+
+        rect(240, 280, 40, 20),
+        rect(200, 200, 40, 20),
+        rect(240, 120, 40, 20),
+    ],
+    [
+        rect(0, 300, 20000, 20),
+    ]
+];
+
+var replays = [];
+var replay = [];
+
+var level = 0;
+
+var showing_replay = false;
+var last_record = 0;
+
+var time;
+var all_dt = 0;
+function animate() {
+    requestAnimationFrame(animate);
+    var now = new Date().getTime(),
+        dt = now - (time || now);
+    time = now;
+    all_dt += dt;
+
+    if (last_record + 10 < all_dt && !showing_replay) {
+        if (replay.length == 0 || replay[replay.length-1][0] !== p.x || replay[replay.length-1][1] !== p.y) {
+            replay.push([p.x, p.y])
+        }
+        last_record = all_dt;
+    }
+
+    var ddt = dt;
+
+    ctx.clearRect(0, 0, cvWidth, cvHeight);
+
+    if (showing_replay) {
+        ctx.globalAlpha = 0.4;
+        var i = Math.round((all_dt-last_record)/15);
+        if (i < replay.length) {
+            replays.forEach(replay => {
+                var pos = replay[i] ? replay[i] : replay[replay.length-1]
+                ctx.fillRect(pos[0], pos[1], 10, 10);
+            })
+        } else {
+            showing_replay = false;
+            replay = [];
+            replays = [];
+            level = (level + 1) % levels.length;
+        }
+        ctx.globalAlpha = 1;
+    } else {
+        ctx.fillRect(p.x, p.y, 10, 10);
+    }
+
+    levels[level].forEach(obs => {
+        ctx.fillRect(obs[0],obs[1],obs[2],obs[3]);
+        if (intersect(pimp_my_rect(obs), pimp_my_rect([p.x, p.y, 10, 10]))) {
+            p.x = 0;
+            p.y = 0;
+            replays.push(replay);
+            replay = [];
+        }
+    })
+
+    ctx.globalAlpha = 0.2;
+    ctx.beginPath();
+    ctx.arc(400, 460, 15, 0, 2*Math.PI);
+    ctx.fill();
+    ctx.globalAlpha = 1;
+
+    if (!showing_replay) {
+        p.x += p.vx * ddt;
+        p.y += p.vy * ddt;
+    }
+
+    p.vx = - (mouse_center.x - mouse.x) / cvWidth / 2;
+    p.vy = - (mouse_center.y - mouse.y) / cvHeight / 2;
+
+    if (p.x < 20) {
+        p.x = 20;
+    }
+    if (p.y < 20) {
+        p.y = 20;
+    }
+    if (p.y > cvHeight - 20) {
+        p.y = cvHeight - 20;
+    }
+    if (p.x > cvWidth - 20) {
+        p.x = cvWidth - 20;
+    }
+
+    if (!showing_replay) {
+        ctx.save();
+        ctx.beginPath();
+        ctx.moveTo(cvWidth/2, cvHeight/2);
+        ctx.lineTo(cvWidth/2 + p.vx * 300, cvHeight/2 + p.vy * 300);
+        ctx.lineWidth = 4;
+        ctx.stroke();
+        ctx.restore();
+        if (intersect(pimp_my_rect([400, 460, 15, 15]), pimp_my_rect([p.x, p.y, 10, 10]))) {
+            p.x = 0;
+            p.y = 0;
+            replays.push(replay);
+            showing_replay = true;
+        }
+    }
+
+}
+
+animate();
+</script>
+</body>
+</html>
