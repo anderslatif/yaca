@@ -1,3 +1,3 @@
 # yaca
 
-[yaca.live](yaca.live)
+[yaca.live](http://yaca.live)
